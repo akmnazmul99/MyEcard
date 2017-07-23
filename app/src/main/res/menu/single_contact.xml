@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<item
+           android:id="@+id/card_search"
+           android:orderInCategory="100"
+           android:icon="@android:drawable/ic_menu_search"
+           android:title="@null"
+           app:showAsAction="always" />
+       <item
+           android:id="@+id/select_card"
+           android:orderInCategory="101"
+           android:title="@string/select_card"
+           app:showAsAction="never" />
+       <item
+           android:id="@+id/create_card"
+           android:orderInCategory="102"
+           android:title="@string/create_card"
+           app:showAsAction="never" />-->
+</menu>
