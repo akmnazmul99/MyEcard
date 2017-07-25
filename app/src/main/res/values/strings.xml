@@ -48,4 +48,6 @@
     <string name="title_activity_edit_profile">Ecard</string>
     <string name="title_activity_user_profile">Ecard</string>
     <string name="title_activity_complete_profile_indicator">Ecard</string>
+    <string name="title_activity_linkedin">Ecard</string>
+    <string name="title_activity_print_card">Ecard</string>
 </resources>

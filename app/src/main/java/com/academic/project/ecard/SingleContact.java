@@ -19,7 +19,7 @@ import android.widget.ImageView;
 public class SingleContact extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DialogInterface.OnClickListener {
     private ImageView imageViewRound;
-    private static String[] items = {"Email"};
+    private static String[] items = {"Email","Linkedin","Print"};
     private Button button_open_dialog;
     AlertDialog ad;
 
@@ -97,15 +97,17 @@ public class SingleContact extends AppCompatActivity
         if (id == R.id.nav_profile) {
             Intent nav_profile_intent = new Intent(SingleContact.this, UserProfile.class);
             startActivity(nav_profile_intent);
-
         } else if (id == R.id.nav_all_cards) {
             Intent nav_all_cards_intent = new Intent(SingleContact.this, AllCards.class);
             startActivity(nav_all_cards_intent);
-        }
-        else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_settings) {
             Intent nav_setting_intent = new Intent(SingleContact.this, Settings.class);
             startActivity(nav_setting_intent);
+        } else if (id == R.id.nav_logout) {
+            Intent nav_logout_intent = new Intent(SingleContact.this, Login.class);
+            startActivity(nav_logout_intent);
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -119,6 +121,14 @@ public class SingleContact extends AppCompatActivity
             case 0:
                 Intent email_intent = new Intent(SingleContact.this, EmailCompose.class);
                 startActivityForResult(email_intent, 0);
+                break;
+            case 1:
+                Intent linkedin_intent = new Intent(SingleContact.this, Linkedin.class);
+                startActivityForResult(linkedin_intent, 0);
+                break;
+            case 2:
+                Intent print_intent = new Intent(SingleContact.this, PrintCard.class);
+                startActivityForResult(print_intent, 0);
                 break;
         }
     }

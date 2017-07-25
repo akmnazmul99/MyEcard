@@ -34,24 +34,6 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
-                        android:text="Full Name"
-                        android:textSize="15dp"
-                        android:textColor="#ff6600"
-                        android:textStyle="italic|bold|normal"
-                        android:typeface="serif" />
-                    <EditText
-                        android:id="@+id/et_user_full_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/card_info_edit_text" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
                         android:text="Mobile/Phone"
                         android:textSize="15dp"
                         android:textColor="#ff6600"
@@ -65,25 +47,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@drawable/card_info_edit_text" />
-                    <TextView
-                        android:id="@+id/tv_email_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:text="E-mail"
-                        android:textSize="15dp"
-                        android:textColor="#ff6600"
-                        android:textStyle="italic|bold|normal"
-                        android:typeface="serif" />
-                    <EditText
-                        android:id="@+id/et_email_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/card_info_edit_text" />
+
                     <TextView
                         android:id="@+id/tv_company"
                         android:layout_width="match_parent"

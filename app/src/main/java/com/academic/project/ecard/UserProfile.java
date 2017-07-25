@@ -87,14 +87,15 @@ public class UserProfile extends AppCompatActivity
         if (id == R.id.nav_profile) {
             Intent nav_profile_intent = new Intent(UserProfile.this, UserProfile.class);
             startActivity(nav_profile_intent);
-
         } else if (id == R.id.nav_all_cards) {
             Intent nav_all_cards_intent = new Intent(UserProfile.this, AllCards.class);
             startActivity(nav_all_cards_intent);
-        }
-        else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_settings) {
             Intent nav_setting_intent = new Intent(UserProfile.this, Settings.class);
             startActivity(nav_setting_intent);
+        } else if (id == R.id.nav_logout) {
+            Intent nav_logout_intent = new Intent(UserProfile.this, Login.class);
+            startActivity(nav_logout_intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

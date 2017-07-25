@@ -2,73 +2,10 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
-        jumboMode="true"
-        revision="19.1.0"
-        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
-        <dex dex="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-23.3.0_537b3651976e73461838878a924d748b37342b37.jar" />
-    </item>
-    <item
-        jar="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
-        jumboMode="true"
-        revision="19.1.0"
-        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
-        <dex dex="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-23.3.0_359d417e3982ee43d15da23f1ba8d5dca099d3ad.jar" />
-    </item>
-    <item
-        jar="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.3.0\jars\classes.jar"
-        jumboMode="true"
-        revision="19.1.0"
-        sha1="debf30ce0a7560396b6235edef77e447006454c2">
-        <dex dex="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-23.3.0_9d5964be9515d8c65931d49309495e18e2ea2461.jar" />
-    </item>
-    <item
-        jar="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        revision="19.1.0"
-        sha1="50feff0ee663ac4a1eb03831c2f94325b2fb50c7">
-        <dex dex="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\pre-dexed\debug\instant-run_1563267c7110fb9a654781f20517213272473532.jar" />
-    </item>
-    <item
-        jar="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
-        jumboMode="true"
-        revision="19.1.0"
-        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
-        <dex dex="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.3.0_a43525a2dcc6acbec38a38cd44790bb236664d4b.jar" />
-    </item>
-    <item
-        jar="E:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
-        jumboMode="true"
-        revision="19.1.0"
-        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
-        <dex dex="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\pre-dexed\debug\support-annotations-23.3.0_98fe2915d7f889fbf7ea276fc69ff0a84f6bb24f.jar" />
-    </item>
-    <item
-        jar="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
-        jumboMode="true"
-        revision="19.1.0"
-        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
-        <dex dex="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\pre-dexed\debug\internal_impl-23.3.0_f4fcdc92a5661c94d6da88fd16108bf81c716a4b.jar" />
-    </item>
-    <item
-        jar="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
-        jumboMode="true"
-        revision="19.1.0"
-        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
-        <dex dex="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.3.0_d585fb2ca1269747a511a3d02b168160fb0361c8.jar" />
-    </item>
-    <item
-        jar="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\exploded-aar\com.android.support\design\23.3.0\jars\classes.jar"
-        jumboMode="true"
-        revision="19.1.0"
-        sha1="f0001e71cea6ae432a00021c6f727f5ef0f3d27e">
-        <dex dex="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\pre-dexed\debug\com.android.support-design-23.3.0_6a92764d1cf87a63e1cbe809c738beaf8190a1c2.jar" />
-    </item>
-    <item
         jar="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="19.1.0"
-        sha1="224df9c569211f2e4b6d6a3c0c464739d425381e">
+        sha1="4f81a6cbbd60fc1046f8db4415a259af54c469c6">
         <dex dex="C:\Users\Nazmul\AndroidStudioProjects\MyEcard\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_d972c7eba5c4b2eeaa77ceea46aaea41c12d578b.jar" />
     </item>
 
