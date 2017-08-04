@@ -1,7 +1,11 @@
 package com.academic.project.ecard;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,15 +17,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import com.auction.dto.response.SignInResponse;
+import com.auction.util.ACTION;
+import com.auction.util.REQUEST_TYPE;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.auction.udp.BackgroundWork;
+import org.json.JSONObject;
+
 public class AllCards extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-private LinearLayout business_card_layout_1;
+        private LinearLayout business_card_layout_1;
+        SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_cards);
         Toolbar toolbar = (Toolbar) findViewById(R.id.all_cards_toolbar);
         setSupportActionBar(toolbar);
+
+        // Session Manager
+        session = new SessionManager(getApplicationContext());
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -35,7 +52,59 @@ private LinearLayout business_card_layout_1;
 
         onClickBusinessCard1ButtonListener();
 
+        this.initTemplate();
+
     }
+
+    public void initTemplate()
+    {
+        String sessionId = session.getSessionId();
+        org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
+        packetHeader.setAction(ACTION.FETCH_LOCATION_LIST);
+        packetHeader.setRequestType(REQUEST_TYPE.REQUEST);
+        packetHeader.setSessionId(sessionId);
+        new BackgroundWork().execute(packetHeader, "{}", new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                String stringSignInResponse = (String)msg.obj;
+                if(stringSignInResponse != null)
+                {
+                    System.out.println(stringSignInResponse);
+                    Gson gson = new Gson();
+                    SignInResponse signInResponse = gson.fromJson(stringSignInResponse, SignInResponse.class);
+                    if(signInResponse.isSuccess())
+                    {
+                        //set profile info into card template
+                    }
+                    else
+                    {
+                        AlertDialog.Builder  sign_in_builder = new AlertDialog.Builder(AllCards.this);
+                        sign_in_builder.setMessage(signInResponse.getMessage())
+                                .setCancelable(false)
+                                .setPositiveButton("", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                })
+                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                });
+
+                        AlertDialog sign_in_alert = sign_in_builder.create();
+                        sign_in_alert.setTitle("Alert!!!");
+                        sign_in_alert.show();
+
+                    }
+                }
+
+            }
+        });
+    }
+
     public void onClickBusinessCard1ButtonListener(){
         business_card_layout_1 = (LinearLayout)findViewById(R.id.business_card_1);
         business_card_layout_1.setOnClickListener(

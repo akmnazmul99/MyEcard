@@ -23,6 +23,9 @@ public class Main extends AppCompatActivity {
 
         onClickSignUpButtonListener();
         onClickLoginButtonListener();
+
+        SessionManager session = new SessionManager(getApplicationContext());
+        session.checkLogin();
     }
 
 
