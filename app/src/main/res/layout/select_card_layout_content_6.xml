@@ -4,10 +4,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <TextView
+        android:id="@+id/tv_lc6_full_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Rashida Sultana"
+        android:text=""
         android:layout_gravity="right"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="25dp"
@@ -16,10 +17,11 @@
         android:textStyle="italic|bold|normal"
         />
     <TextView
+        android:id="@+id/tv_lc6_job_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Software Engineer"
+        android:text=""
         android:layout_gravity="right"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="20dp"
@@ -35,10 +37,11 @@
         android:layout_marginRight="20dp"
         />
     <TextView
+        android:id="@+id/tv_lc6_cell"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="01723598606"
+        android:text=""
         android:layout_marginTop="-20dp"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="20dp"
@@ -53,10 +56,11 @@
         android:layout_marginRight="20dp"
         />
     <TextView
+        android:id="@+id/tv_lc6_full_email"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="rashida.cse@gmail.com"
+        android:text=""
         android:layout_marginTop="-20dp"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="20dp"
@@ -71,10 +75,11 @@
         android:layout_marginRight="20dp"
         />
     <TextView
+        android:id="@+id/tv_lc6_website"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="shadhiin.com"
+        android:text=""
         android:layout_marginTop="-20dp"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="20dp"
@@ -89,10 +94,11 @@
         android:layout_marginRight="20dp"
         />
     <TextView
+        android:id="@+id/tv_lc6_address"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="168, Shantiniketon, Gulshan-1."
+        android:text=""
         android:layout_marginTop="-20dp"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="20dp"
