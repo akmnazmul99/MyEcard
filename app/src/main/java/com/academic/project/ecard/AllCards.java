@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.auction.dto.response.SignInResponse;
 import com.auction.util.ACTION;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 public class AllCards extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         private LinearLayout business_card_layout_1;
+        private TextView tvLC1FullName, tvLC1JobTitle, tvLC1Cell, tvLC1Email, tvLC1Website, tvLC1Address;
         SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,13 @@ public class AllCards extends AppCompatActivity
 
         // Session Manager
         session = new SessionManager(getApplicationContext());
+
+        tvLC1FullName = (TextView)findViewById(R.id.tv_lc1_full_name);
+        tvLC1JobTitle = (TextView)findViewById(R.id.tv_lc1_job_title);
+        tvLC1Cell = (TextView)findViewById(R.id.tv_lc1_cell);
+        tvLC1Email = (TextView)findViewById(R.id.tv_lc1_full_email);
+        tvLC1Website = (TextView)findViewById(R.id.tv_lc1_website);
+        tvLC1Address = (TextView)findViewById(R.id.tv_lc1_address);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -66,39 +75,67 @@ public class AllCards extends AppCompatActivity
         new BackgroundWork().execute(packetHeader, "{}", new Handler(){
             @Override
             public void handleMessage(Message msg) {
-                String stringSignInResponse = (String)msg.obj;
-                if(stringSignInResponse != null)
+                if(msg != null)
                 {
-                    System.out.println(stringSignInResponse);
-                    Gson gson = new Gson();
-                    SignInResponse signInResponse = gson.fromJson(stringSignInResponse, SignInResponse.class);
-                    if(signInResponse.isSuccess())
+                    String stringSignInResponse = (String)msg.obj;
+                    if(stringSignInResponse != null)
                     {
-                        //set profile info into card template
+                        System.out.println(stringSignInResponse);
+                        Gson gson = new Gson();
+                        SignInResponse signInResponse = gson.fromJson(stringSignInResponse, SignInResponse.class);
+                        if(signInResponse.isSuccess())
+                        {
+                            //set profile info into card template
+                            try
+                            {
+                                //set profile info
+                                JSONObject jsonProfileInfo  = new JSONObject(stringSignInResponse);
+                                JSONObject jsonUserInfo  = new JSONObject(jsonProfileInfo.get("user").toString());
+                                JSONObject jsonCompanyInfo  = new JSONObject(jsonProfileInfo.get("company").toString());
+                                tvLC1FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
+                                tvLC1JobTitle.setText(jsonProfileInfo.get("designation").toString());
+                                tvLC1Cell.setText(jsonUserInfo.get("cell").toString());
+                                tvLC1Email.setText(jsonUserInfo.get("email").toString());
+                                tvLC1Website.setText(jsonCompanyInfo.get("website").toString());
+                                tvLC1Address.setText(jsonCompanyInfo.get("address").toString());
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+                        }
+                        else
+                        {
+                            AlertDialog.Builder  sign_in_builder = new AlertDialog.Builder(AllCards.this);
+                            sign_in_builder.setMessage(signInResponse.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            finish();
+                                        }
+                                    })
+                                    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+
+                            AlertDialog sign_in_alert = sign_in_builder.create();
+                            sign_in_alert.setTitle("Alert!!!");
+                            sign_in_alert.show();
+
+                        }
                     }
                     else
                     {
-                        AlertDialog.Builder  sign_in_builder = new AlertDialog.Builder(AllCards.this);
-                        sign_in_builder.setMessage(signInResponse.getMessage())
-                                .setCancelable(false)
-                                .setPositiveButton("", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        finish();
-                                    }
-                                })
-                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.cancel();
-                                    }
-                                });
-
-                        AlertDialog sign_in_alert = sign_in_builder.create();
-                        sign_in_alert.setTitle("Alert!!!");
-                        sign_in_alert.show();
-
+                        //go to mail page
                     }
+                }
+                else
+                {
+                    //go to mail page
                 }
 
             }
@@ -163,8 +200,8 @@ public class AllCards extends AppCompatActivity
             Intent nav_setting_intent = new Intent(AllCards.this, Settings.class);
             startActivity(nav_setting_intent);
         } else if (id == R.id.nav_logout) {
-            Intent nav_logout_intent = new Intent(AllCards.this, Login.class);
-            startActivity(nav_logout_intent);
+            //clear session
+            session.logoutUser();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

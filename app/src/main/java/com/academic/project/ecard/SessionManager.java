@@ -101,13 +101,13 @@ public class SessionManager {
     /**
      * Clear session details
      * */
-    /*public void logoutUser(){
+    public void logoutUser(){
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();
 
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(_context, LoginActivity.class);
+        Intent i = new Intent(_context, Main.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -116,7 +116,7 @@ public class SessionManager {
 
         // Staring Login Activity
         _context.startActivity(i);
-    }*/
+    }
 
     /**
      * Quick check for login

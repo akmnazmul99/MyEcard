@@ -52,7 +52,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:textColor="#ff6600"
-                android:text="Nazmul Islam"
+                android:text=""
                 android:textSize="20dp"
                 android:textStyle="bold"/>
             <TextView
@@ -64,7 +64,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:textColor="#1967CC"
-                android:text="Software Engineer"
+                android:text=""
                 android:textSize="15dp"
                 android:textStyle="bold"/>
             <TextView
@@ -76,7 +76,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:textColor="#ff6600"
-                android:text="Sampan IT"
+                android:text=""
                 android:textSize="17dp"
                 android:textStyle="bold"/>
         </RelativeLayout>
@@ -118,13 +118,14 @@
                             android:textSize="17dp"
                             android:textStyle="bold"/>
                         <TextView
+                            android:id="@+id/tv_phone_or_mobile_contact_11"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_phone_or_mobile_contact_1"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:textColor="#1967CC"
-                            android:text="01912314466"
+                            android:text=""
                             android:textSize="15dp"
                             android:textStyle="bold"/>
                     </RelativeLayout>
@@ -159,13 +160,14 @@
                             android:textSize="17dp"
                             android:textStyle="bold"/>
                         <TextView
+                            android:id="@+id/tv_contact_22"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_contact_2"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:textColor="#1967CC"
-                            android:text="nazmulislamredoy@gmail.com"
+                            android:text=""
                             android:textSize="15dp"
                             android:textStyle="bold"/>
                     </RelativeLayout>
@@ -200,13 +202,14 @@
                             android:textSize="17dp"
                             android:textStyle="bold"/>
                         <TextView
+                            android:id="@+id/tv_contact_33"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_contact_3"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:textColor="#1967CC"
-                            android:text="Software Development"
+                            android:text=""
                             android:textSize="15dp"
                             android:textStyle="bold"/>
                     </RelativeLayout>

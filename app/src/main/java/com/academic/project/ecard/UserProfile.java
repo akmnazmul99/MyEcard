@@ -1,7 +1,11 @@
 package com.academic.project.ecard;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,10 +16,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.auction.dto.response.SignInResponse;
+import com.auction.util.ACTION;
+import com.auction.util.REQUEST_TYPE;
+import com.google.gson.Gson;
+
+import org.auction.udp.BackgroundWork;
+import org.json.JSONObject;
 
 public class UserProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private Button button_edit_profile;
+    private TextView tvFullName, tvJobTitle, tvCompanyTitle, tvCell, tvEmail, tvJobTitle2;
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +38,15 @@ public class UserProfile extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.user_profile_toolbar);
         setSupportActionBar(toolbar);
 
+        // Session Manager
+        session = new SessionManager(getApplicationContext());
+
+        tvFullName = (TextView)findViewById(R.id.tv_contact_user_name_1);
+        tvJobTitle = (TextView)findViewById(R.id.tv_contact_job_title_1);
+        tvCompanyTitle = (TextView)findViewById(R.id.tv_contact_company_name_1);
+        tvCell = (TextView)findViewById(R.id.tv_phone_or_mobile_contact_11);
+        tvEmail = (TextView)findViewById(R.id.tv_contact_22);
+        tvJobTitle2 = (TextView)findViewById(R.id.tv_contact_33);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -35,7 +59,85 @@ public class UserProfile extends AppCompatActivity
 
         onClickEditProfileButtonListener();
 
+        this.initTemplate();
     }
+
+    public void initTemplate()
+    {
+        String sessionId = session.getSessionId();
+        org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
+        packetHeader.setAction(ACTION.FETCH_LOCATION_LIST);
+        packetHeader.setRequestType(REQUEST_TYPE.REQUEST);
+        packetHeader.setSessionId(sessionId);
+        new BackgroundWork().execute(packetHeader, "{}", new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                if(msg != null)
+                {
+                    String stringSignInResponse = (String)msg.obj;
+                    if(stringSignInResponse != null)
+                    {
+                        System.out.println(stringSignInResponse);
+                        Gson gson = new Gson();
+                        SignInResponse signInResponse = gson.fromJson(stringSignInResponse, SignInResponse.class);
+                        if(signInResponse.isSuccess())
+                        {
+                            try
+                            {
+                                //set profile info
+                                JSONObject jsonProfileInfo  = new JSONObject(stringSignInResponse);
+                                JSONObject jsonUserInfo  = new JSONObject(jsonProfileInfo.get("user").toString());
+                                JSONObject jsonCompanyInfo  = new JSONObject(jsonProfileInfo.get("company").toString());
+                                System.out.println(jsonProfileInfo);
+                                tvFullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
+                                tvJobTitle.setText(jsonProfileInfo.get("designation").toString());
+                                tvCompanyTitle.setText(jsonCompanyInfo.get("title").toString());
+                                tvCell.setText(jsonUserInfo.get("cell").toString());
+                                tvEmail.setText(jsonUserInfo.get("email").toString());
+                                tvJobTitle2.setText(jsonProfileInfo.get("designation").toString());
+                            }
+                            catch(Exception ex)
+                            {
+
+                            }
+                        }
+                        else
+                        {
+                            AlertDialog.Builder  sign_in_builder = new AlertDialog.Builder(UserProfile.this);
+                            sign_in_builder.setMessage(signInResponse.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            finish();
+                                        }
+                                    })
+                                    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+
+                            AlertDialog sign_in_alert = sign_in_builder.create();
+                            sign_in_alert.setTitle("Alert!!!");
+                            sign_in_alert.show();
+
+                        }
+                    }
+                    else
+                    {
+                        //go to mail page
+                    }
+                }
+                else
+                {
+                    //go to mail page
+                }
+            }
+        });
+    }
+
     public void onClickEditProfileButtonListener(){
         button_edit_profile = (Button)findViewById(R.id.b_edit_profile);
         button_edit_profile.setOnClickListener(

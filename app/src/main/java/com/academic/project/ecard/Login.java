@@ -70,49 +70,59 @@ public class Login extends AppCompatActivity {
                         new BackgroundWork().execute(packetHeader, userString, new Handler(){
                             @Override
                             public void handleMessage(Message msg) {
-                                String stringSignInResponse = (String)msg.obj;
-                                if(stringSignInResponse != null)
+                                if(msg != null )
                                 {
-                                    //Toast.makeText(getApplicationContext(), stringSignInResponse, Toast.LENGTH_LONG).show();
-                                    System.out.println(stringSignInResponse);
-                                    Gson gson = new Gson();
-                                    SignInResponse signInResponse = gson.fromJson(stringSignInResponse, SignInResponse.class);
-                                    if(signInResponse.isSuccess())
+                                    String stringSignInResponse = (String)msg.obj;
+                                    if(stringSignInResponse != null)
                                     {
-                                        //session.createLoginSession(identity, signInResponse.getSessionId());
-                                        session.createLoginSession(etIdentity.getText().toString(), signInResponse.getSessionId());
-                                        Intent login_intent = new Intent(Login.this, AllCards.class);
-                                        startActivity(login_intent);
+                                        //Toast.makeText(getApplicationContext(), stringSignInResponse, Toast.LENGTH_LONG).show();
+                                        System.out.println(stringSignInResponse);
+                                        Gson gson = new Gson();
+                                        SignInResponse signInResponse = gson.fromJson(stringSignInResponse, SignInResponse.class);
+                                        if(signInResponse.isSuccess())
+                                        {
+                                            //session.createLoginSession(identity, signInResponse.getSessionId());
+                                            session.createLoginSession(etIdentity.getText().toString(), signInResponse.getSessionId());
+                                            Intent login_intent = new Intent(Login.this, AllCards.class);
+                                            startActivity(login_intent);
 
-                                        //Intent login_intent = new Intent(getBaseContext(), MemberDashboard.class);
-                                        //login_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        //startActivity(login_intent);
+                                            //Intent login_intent = new Intent(getBaseContext(), MemberDashboard.class);
+                                            //login_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            //startActivity(login_intent);
+                                        }
+                                        else
+                                        {
+                                            AlertDialog.Builder  sign_in_builder = new AlertDialog.Builder(Login.this);
+                                            sign_in_builder.setMessage(signInResponse.getMessage())
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            finish();
+                                                        }
+                                                    })
+                                                    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            dialogInterface.cancel();
+                                                        }
+                                                    });
+
+                                            AlertDialog sign_in_alert = sign_in_builder.create();
+                                            sign_in_alert.setTitle("Alert!!!");
+                                            sign_in_alert.show();
+
+                                        }
                                     }
                                     else
                                     {
-                                        AlertDialog.Builder  sign_in_builder = new AlertDialog.Builder(Login.this);
-                                        sign_in_builder.setMessage(signInResponse.getMessage())
-                                                .setCancelable(false)
-                                                .setPositiveButton("", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        finish();
-                                                    }
-                                                })
-                                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        dialogInterface.cancel();
-                                                    }
-                                                });
-
-                                        AlertDialog sign_in_alert = sign_in_builder.create();
-                                        sign_in_alert.setTitle("Alert!!!");
-                                        sign_in_alert.show();
-
+                                        //go to mail page
                                     }
                                 }
-
+                                else
+                                {
+                                    //go to mail page
+                                }
                             }
                         });
                         //Intent login_intent = new Intent(Login.this, AllCards.class);
