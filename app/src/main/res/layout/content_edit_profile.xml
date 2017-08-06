@@ -35,13 +35,32 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
-                        android:text="Full Name"
+                        android:text="First Name"
                         android:textSize="15dp"
                         android:textColor="#ff6600"
                         android:textStyle="italic|bold|normal"
                         android:typeface="serif" />
                     <EditText
-                        android:id="@+id/et_user_full_name"
+                        android:id="@+id/et_user_first_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/card_info_edit_text" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:text="Last Name"
+                        android:textSize="15dp"
+                        android:textColor="#ff6600"
+                        android:textStyle="italic|bold|normal"
+                        android:typeface="serif" />
+                    <EditText
+                        android:id="@+id/et_user_last_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -59,7 +78,7 @@
                         android:textStyle="italic|bold|normal"
                         android:typeface="serif" />
                     <EditText
-                        android:id="@+id/et_cell_number"
+                        android:id="@+id/et_cell"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -67,45 +86,6 @@
                         android:layout_marginRight="15dp"
                         android:background="@drawable/card_info_edit_text" />
                     <TextView
-                        android:id="@+id/tv_email_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:text="E-mail"
-                        android:textSize="15dp"
-                        android:textColor="#ff6600"
-                        android:textStyle="italic|bold|normal"
-                        android:typeface="serif" />
-                    <EditText
-                        android:id="@+id/et_email_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/card_info_edit_text" />
-                    <TextView
-                        android:id="@+id/tv_company"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:text="Company Name"
-                        android:textSize="15dp"
-                        android:textColor="#ff6600"
-                        android:textStyle="italic|bold|normal"
-                        android:typeface="serif" />
-                    <EditText
-                        android:id="@+id/et_company"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/card_info_edit_text" />
-                    <TextView
-                        android:id="@+id/tv_department"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -124,7 +104,6 @@
                         android:layout_marginRight="15dp"
                         android:background="@drawable/card_info_edit_text" />
                     <TextView
-                        android:id="@+id/tv_job_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -134,46 +113,9 @@
                         android:textColor="#ff6600"
                         android:textStyle="italic|bold|normal"
                         android:typeface="serif" />
+
                     <EditText
                         android:id="@+id/et_job_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/card_info_edit_text" />
-                    <TextView
-                        android:id="@+id/tv_street_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:text="Street Address"
-                        android:textSize="15dp"
-                        android:textColor="#ff6600"
-                        android:textStyle="italic|bold|normal"
-                        android:typeface="serif" />
-                    <EditText
-                        android:id="@+id/et_street_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/card_info_edit_text" />
-                    <TextView
-                        android:id="@+id/tv_web_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:text="Web Address"
-                        android:textSize="15dp"
-                        android:textColor="#ff6600"
-                        android:textStyle="italic|bold|normal"
-                        android:typeface="serif" />
-                    <EditText
-                        android:id="@+id/et_web_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
