@@ -30,7 +30,12 @@ import org.json.JSONObject;
 public class AllCards extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         private LinearLayout business_card_layout_1,
-                             business_card_layout_2;
+                            business_card_layout_2,
+                            business_card_layout_3,
+                            business_card_layout_4,
+                            business_card_layout_5,
+                            business_card_layout_6,
+                            business_card_layout_7;
         private TextView tvLC1FullName, tvLC1JobTitle, tvLC1Cell, tvLC1Email, tvLC1Website, tvLC1Address,
                 tvLC2FullName, tvLC2JobTitle, tvLC2Cell, tvLC2Email, tvLC2Website, tvLC2Address,tvLC2Company,
                 tvLC3FullName, tvLC3JobTitle, tvLC3Cell, tvLC3Email, tvLC3Website, tvLC3Address,tvLC3Company,
@@ -111,6 +116,12 @@ public class AllCards extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         onClickBusinessCard1ButtonListener();
+        onClickBusinessCard2ButtonListener();
+        onClickBusinessCard3ButtonListener();
+        onClickBusinessCard4ButtonListener();
+        onClickBusinessCard5ButtonListener();
+        onClickBusinessCard6ButtonListener();
+        onClickBusinessCard7ButtonListener();
 
         this.initTemplate();
 
@@ -244,8 +255,80 @@ public class AllCards extends AppCompatActivity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent single_card_intent = new Intent(AllCards.this, SingleContact.class);
-                        startActivity(single_card_intent);
+                        Intent single_card_layout1_intent = new Intent(AllCards.this, SingleCardLayout1.class);
+                        startActivity(single_card_layout1_intent);
+                    }
+                }
+        );
+    }
+    public void onClickBusinessCard2ButtonListener(){
+        business_card_layout_2 = (LinearLayout)findViewById(R.id.business_card_2);
+        business_card_layout_2.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent single_card_layout2_intent = new Intent(AllCards.this, SingleCardLayout2.class);
+                        startActivity(single_card_layout2_intent);
+                    }
+                }
+        );
+    }
+    public void onClickBusinessCard3ButtonListener(){
+        business_card_layout_3 = (LinearLayout)findViewById(R.id.business_card_3);
+        business_card_layout_3.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent single_card_layout3_intent = new Intent(AllCards.this, SingleCardLayout3.class);
+                        startActivity(single_card_layout3_intent);
+                    }
+                }
+        );
+    }
+    public void onClickBusinessCard4ButtonListener(){
+        business_card_layout_4 = (LinearLayout)findViewById(R.id.business_card_4);
+        business_card_layout_4.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent single_card_layout4_intent = new Intent(AllCards.this, SingleCardLayout4.class);
+                        startActivity(single_card_layout4_intent);
+                    }
+                }
+        );
+    }
+    public void onClickBusinessCard5ButtonListener(){
+        business_card_layout_5 = (LinearLayout)findViewById(R.id.business_card_5);
+        business_card_layout_5.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent single_card_layout5_intent = new Intent(AllCards.this, SingleCardLayout5.class);
+                        startActivity(single_card_layout5_intent);
+                    }
+                }
+        );
+    }
+    public void onClickBusinessCard6ButtonListener(){
+        business_card_layout_6 = (LinearLayout)findViewById(R.id.business_card_6);
+        business_card_layout_6.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent single_card_layout6_intent = new Intent(AllCards.this, SingleCardLayout6.class);
+                        startActivity(single_card_layout6_intent);
+                    }
+                }
+        );
+    }
+    public void onClickBusinessCard7ButtonListener(){
+        business_card_layout_7 = (LinearLayout)findViewById(R.id.business_card_7);
+        business_card_layout_7.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent single_card_layout7_intent = new Intent(AllCards.this, SingleCardLayout7.class);
+                        startActivity(single_card_layout7_intent);
                     }
                 }
         );

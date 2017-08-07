@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/action_bar_height"
-    tools:context="com.academic.project.ecard.SingleContact"
-    tools:showIn="@layout/app_bar_single_contact">
+    tools:context="com.academic.project.ecard.SingleCardLayout7"
+    tools:showIn="@layout/app_bar_single_card_layout7">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,30 +29,29 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:drawable="@android:drawable/list_selector_background"
-                    android:background="@drawable/card_layout_style_1"/>
+                    android:background="@drawable/card_layout_style_7"/>
                 <LinearLayout
-                    android:id="@+id/business_card_1"
+                    android:id="@+id/business_card_7"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
                     android:orientation="vertical"
                     android:layout_marginTop="-150dp">
-                    <include layout="@layout/select_card_layout_content_1"/>
+                    <include layout="@layout/select_card_layout_content_7"/>
                 </LinearLayout>
             </LinearLayout>
-
+            <Button
+                android:id="@+id/b_open_dialog_share_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:textColor="#FF6600"
+                android:textSize="18dp"
+                android:drawableLeft="@android:drawable/ic_menu_share"
+                android:textAllCaps="false"
+                android:gravity="center"
+                android:text="Share Card" />
         </ScrollView>
-        <Button
-            android:id="@+id/b_open_dialog_share_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:textColor="#FF6600"
-            android:textSize="18dp"
-            android:drawableLeft="@android:drawable/ic_menu_share"
-            android:textAllCaps="false"
-            android:gravity="center"
-            android:text="Share Card" />
     </LinearLayout>
 </LinearLayout>

@@ -31,12 +31,8 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_custom">custom</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_notifications">Notifications</string>
-    <string name="title_activity_privacy">Privacy</string>
-    <string name="title_activity_all_contacts">AllContacts</string>
-    <string name="title_activity_single_contact">Ecard</string>
+    <string name="title_activity_all_contacts">Ecard</string>
     <string name="title_activity_email_compose">Ecard</string>
 
     <string name="et_from_email_address_hint"><font size="16">From</font></string>
@@ -50,4 +46,11 @@
     <string name="title_activity_complete_profile_indicator">Ecard</string>
     <string name="title_activity_linkedin">Ecard</string>
     <string name="title_activity_print_card">Ecard</string>
+    <string name="title_activity_single_card_layout1">Ecard</string>
+    <string name="title_activity_single_card_layout2">Ecard</string>
+    <string name="title_activity_single_card_layout3">Ecard</string>
+    <string name="title_activity_single_card_layout4">Ecard</string>
+    <string name="title_activity_single_card_layout5">Ecard</string>
+    <string name="title_activity_single_card_layout6">Ecard</string>
+    <string name="title_activity_single_card_layout7">Ecard</string>
 </resources>
