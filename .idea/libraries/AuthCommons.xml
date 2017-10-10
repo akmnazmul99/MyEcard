@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="AuthCommons">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/AuthCommons.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

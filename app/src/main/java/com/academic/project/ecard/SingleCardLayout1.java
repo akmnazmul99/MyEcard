@@ -3,6 +3,7 @@ package com.academic.project.ecard;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.auction.dto.response.SignInResponse;
 import com.auction.util.ACTION;
@@ -26,6 +28,8 @@ import com.google.gson.GsonBuilder;
 
 import org.auction.udp.BackgroundWork;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 
 public class SingleCardLayout1 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DialogInterface.OnClickListener {
@@ -132,7 +136,20 @@ public class SingleCardLayout1 extends AppCompatActivity
                 startActivityForResult(linkedin_intent, 0);
                 break;
             case 2:
+                LinearLayout idCardDesign = (LinearLayout)findViewById(R.id.idCardDesign);
+                idCardDesign.setDrawingCacheEnabled(true);
+                idCardDesign.buildDrawingCache(true);
+                Bitmap bmp = Bitmap.createBitmap(idCardDesign.getDrawingCache());
+                idCardDesign.setDrawingCacheEnabled(false);
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+
+
                 Intent print_intent = new Intent(SingleCardLayout1.this, PrintCard.class);
+                print_intent.putExtra("cardImage", byteArray);
+
                 startActivityForResult(print_intent, 0);
                 break;
         }
