@@ -25,9 +25,10 @@ public class PrintCard extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print_card);
         Bundle extras = getIntent().getExtras();
-        byte[] byteArray = extras.getByteArray("cardImage");
-
-        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+//        byte[] byteArray = extras.getByteArray("cardImage");
+        String filePath = extras.getString("cardImage");
+//        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        Bitmap bmp = BitmapFactory.decodeFile(filePath);
         ImageView idCardImageView = (ImageView) findViewById(R.id.idCardImageView);
         idCardImageView.setImageBitmap(bmp);
 

@@ -1,12 +1,18 @@
 package com.academic.project.ecard;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,19 +23,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.auction.dto.response.SignInResponse;
-import com.auction.util.ACTION;
-import com.auction.util.REQUEST_TYPE;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.auction.udp.BackgroundWork;
-import org.json.JSONObject;
+import org.auction.udp.BackgroundUploader;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.UUID;
+
+
 
 public class SingleCardLayout1 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DialogInterface.OnClickListener {
@@ -37,6 +42,8 @@ public class SingleCardLayout1 extends AppCompatActivity
     private static String[] items = {"Email","Linkedin","Print"};
     private Button button_open_dialog;
     AlertDialog ad;
+    public Dialog imageUploadDialog;
+    public int imgUploadType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +130,11 @@ public class SingleCardLayout1 extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     @Override
     public void onClick(DialogInterface dialog, int pos) {
+        imageUploadDialog = new Dialog(SingleCardLayout1.this);
+
         switch( pos )
         {
             case 0:
@@ -136,22 +146,74 @@ public class SingleCardLayout1 extends AppCompatActivity
                 startActivityForResult(linkedin_intent, 0);
                 break;
             case 2:
+
+                imageUploadDialog.show();
+
                 LinearLayout idCardDesign = (LinearLayout)findViewById(R.id.idCardDesign);
                 idCardDesign.setDrawingCacheEnabled(true);
                 idCardDesign.buildDrawingCache(true);
                 Bitmap bmp = Bitmap.createBitmap(idCardDesign.getDrawingCache());
                 idCardDesign.setDrawingCacheEnabled(false);
 
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] byteArray = stream.toByteArray();
+                final String filePath = saveToInternalStorage(bmp);
+
+                try {
+
+                    new BackgroundUploader().execute(filePath, new Handler(){
+                        @Override
+                        public void handleMessage(Message msg) {
+                            imageUploadDialog.dismiss();
+                            try
+                            {
+                                String img = (String)msg.obj;
+                                String fileUrl = "http://roomauction.co.uk/" + "uploads/" + img;
+
+//                                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                                byte[] byteArray = stream.toByteArray();
 
 
-                Intent print_intent = new Intent(SingleCardLayout1.this, PrintCard.class);
-                print_intent.putExtra("cardImage", byteArray);
+                                Intent print_intent = new Intent(SingleCardLayout1.this, PrintCard.class);
+                                print_intent.putExtra("cardImage", filePath);
 
-                startActivityForResult(print_intent, 0);
+                                startActivityForResult(print_intent, 0);
+
+                            }
+                            catch(Exception ex)
+                            {
+                                Toast.makeText(getApplicationContext(), "Unable to upload image. Please try again later.", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
                 break;
         }
+    }
+
+    private String saveToInternalStorage(Bitmap bitmapImage){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("Images", Context.MODE_PRIVATE);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        UUID random = UUID.randomUUID();
+        // Create imageDir
+        File mypath=new File(directory, random + ".png");
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mypath.getAbsolutePath();
     }
 }
