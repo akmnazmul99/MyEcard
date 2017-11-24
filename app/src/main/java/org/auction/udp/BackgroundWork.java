@@ -11,7 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-        import com.auction.util.ACTION;
+        import com.bdlions.util.ACTION;
         import com.google.gson.Gson;
         import com.google.gson.GsonBuilder;
 
@@ -30,7 +30,9 @@ public class BackgroundWork extends AsyncTask<Object, Integer, Void> {
     //IServerCallback callback = null;
     Handler handler = null;
 
-   UDPCom udpCom = UDPCom.getInstance("192.168.0.102", 10000);
+
+    //UDPCom udpCom = UDPCom.getInstance("192.168.0.106", 10000);
+    UDPCom udpCom = UDPCom.getInstance("212.24.103.134", 10000);
 
     @Override
     protected Void doInBackground(Object ... params) {

@@ -13,10 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.auction.dto.response.SignInResponse;
-import com.auction.util.ACTION;
-import com.auction.util.REQUEST_TYPE;
+import com.bdlions.dto.Profile;
+import com.bdlions.dto.response.SignInResponse;
+import com.bdlions.util.ACTION;
+import com.bdlions.util.REQUEST_TYPE;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.auction.udp.BackgroundWork;
 import org.json.JSONObject;
@@ -26,6 +28,7 @@ public class EditProfile extends AppCompatActivity {
     private EditText etFirstName, etLastName, etCell, etDepartment, etJobTitle;
     SessionManager session;
     public static String strProfileInfo;
+    public Profile profileInfo = new Profile();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,7 @@ public class EditProfile extends AppCompatActivity {
     {
         String sessionId = session.getSessionId();
         org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
-        packetHeader.setAction(ACTION.FETCH_LOCATION_LIST);
+        packetHeader.setAction(ACTION.FETCH_PROFILE_INFO);
         packetHeader.setRequestType(REQUEST_TYPE.REQUEST);
         packetHeader.setSessionId(sessionId);
         new BackgroundWork().execute(packetHeader, "{}", new Handler(){
@@ -59,27 +62,35 @@ public class EditProfile extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 if(msg != null)
                 {
-                    String stringSignInResponse = (String)msg.obj;
-                    if(stringSignInResponse != null)
+                    String stringProfile = (String)msg.obj;
+                    if(stringProfile != null)
                     {
-                        System.out.println(stringSignInResponse);
+                        System.out.println(stringProfile);
                         Gson gson = new Gson();
-                        SignInResponse signInResponse = gson.fromJson(stringSignInResponse, SignInResponse.class);
-                        if(signInResponse.isSuccess())
+                        Profile profile = gson.fromJson(stringProfile, Profile.class);
+                        if(profile.isSuccess())
                         {
                             try
                             {
-                                strProfileInfo = stringSignInResponse;
+                                profileInfo = profile;
+                                strProfileInfo = stringProfile;
                                 //set profile info
-                                JSONObject jsonProfileInfo  = new JSONObject(stringSignInResponse);
+                                JSONObject jsonProfileInfo  = new JSONObject(stringProfile);
                                 JSONObject jsonUserInfo  = new JSONObject(jsonProfileInfo.get("user").toString());
                                 JSONObject jsonCompanyInfo  = new JSONObject(jsonProfileInfo.get("company").toString());
                                 System.out.println(jsonProfileInfo);
-                                etFirstName.setText(jsonUserInfo.get("firstName").toString());
-                                etLastName.setText(jsonUserInfo.get("lastName").toString());
-                                etCell.setText(jsonUserInfo.get("cell").toString());
-                                etDepartment.setText(jsonProfileInfo.get("department").toString());
-                                etJobTitle.setText(jsonProfileInfo.get("designation").toString());
+
+                                etFirstName.setText(profile.getUser().getFirstName());
+                                etLastName.setText(profile.getUser().getLastName());
+                                etCell.setText(profile.getUser().getCell());
+                                etDepartment.setText(profile.getDepartment());
+                                etJobTitle.setText(profile.getDesignation());
+
+                                //etFirstName.setText(jsonUserInfo.get("firstName").toString());
+                                //etLastName.setText(jsonUserInfo.get("lastName").toString());
+                                //etCell.setText(jsonUserInfo.get("cell").toString());
+                                //etDepartment.setText(jsonProfileInfo.get("department").toString());
+                                //etJobTitle.setText(jsonProfileInfo.get("designation").toString());
                             }
                             catch(Exception ex)
                             {
@@ -89,7 +100,7 @@ public class EditProfile extends AppCompatActivity {
                         else
                         {
                             AlertDialog.Builder  sign_in_builder = new AlertDialog.Builder(EditProfile.this);
-                            sign_in_builder.setMessage(signInResponse.getMessage())
+                            sign_in_builder.setMessage(profile.getMessage())
                                     .setCancelable(false)
                                     .setPositiveButton("", new DialogInterface.OnClickListener() {
                                         @Override
@@ -129,26 +140,37 @@ public class EditProfile extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(strProfileInfo != null && !strProfileInfo.equals(""))
+                        if(profileInfo != null && profileInfo.getId() > 0)
                         {
                             try
                             {
                                 JSONObject jsonProfileInfo  = new JSONObject(strProfileInfo);
                                 JSONObject jsonUserInfo  = new JSONObject(jsonProfileInfo.get("user").toString());
 
-                                jsonUserInfo.put("firstName", etFirstName.getText());
-                                jsonUserInfo.put("lastName", etLastName.getText());
-                                jsonUserInfo.put("cell", etCell.getText());
+                                profileInfo.getUser().setFirstName(etFirstName.getText().toString());
+                                profileInfo.getUser().setLastName(etLastName.getText().toString());
+                                profileInfo.getUser().setCell(etCell.getText().toString());
 
-                                jsonProfileInfo.put("department", etDepartment.getText());
-                                jsonProfileInfo.put("designation", etJobTitle.getText());
+                                profileInfo.setDepartment(etDepartment.getText().toString());
+                                profileInfo.setDesignation(etJobTitle.getText().toString());
+
+                                //jsonUserInfo.put("firstName", etFirstName.getText());
+                                //jsonUserInfo.put("lastName", etLastName.getText());
+                                //jsonUserInfo.put("cell", etCell.getText());
+
+                                //jsonProfileInfo.put("department", etDepartment.getText());
+                                //jsonProfileInfo.put("designation", etJobTitle.getText());
 
                                 jsonProfileInfo.put("user", jsonUserInfo.toString());
 
                                 org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
-                                packetHeader.setAction(ACTION.FETCH_PRODUCT_INFO);
+                                packetHeader.setAction(ACTION.UPDATE_PROFILE_INFO);
                                 packetHeader.setRequestType(REQUEST_TYPE.UPDATE);
-                                new BackgroundWork().execute(packetHeader, jsonProfileInfo.toString(), new Handler(){
+                                packetHeader.setSessionId(session.getSessionId());
+                                GsonBuilder gsonBuilder = new GsonBuilder();
+                                Gson gson = gsonBuilder.create();
+                                String profileInfoString = gson.toJson(profileInfo);
+                                new BackgroundWork().execute(packetHeader, profileInfoString, new Handler(){
                                     @Override
                                     public void handleMessage(Message msg) {
                                         if(msg != null )
@@ -208,7 +230,10 @@ public class EditProfile extends AppCompatActivity {
                             }
 
                         }
-
+                        else
+                        {
+                            //show pop with error message
+                        }
                     }
                 }
         );

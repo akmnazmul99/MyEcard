@@ -12,9 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.auction.dto.response.SignInResponse;
-import com.auction.util.ACTION;
-import com.auction.util.REQUEST_TYPE;
+import com.bdlions.dto.response.SignInResponse;
+import com.bdlions.util.ACTION;
+import com.bdlions.util.REQUEST_TYPE;
 import com.google.gson.Gson;
 
 import org.auction.udp.BackgroundWork;
@@ -62,7 +62,7 @@ public class SignUp extends AppCompatActivity {
                             jsonProfileInfo.put("user", jsonUserInfo);
 
                             org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
-                            packetHeader.setAction(ACTION.FETCH_PRODUCT_LIST);
+                            packetHeader.setAction(ACTION.SIGN_UP);
                             packetHeader.setRequestType(REQUEST_TYPE.AUTH);
                             packetHeader.setSessionId("");
                             new BackgroundWork().execute(packetHeader, jsonProfileInfo.toString(), new Handler(){

@@ -24,9 +24,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bdlions.dto.Profile;
+import com.bdlions.dto.response.SignInResponse;
+import com.bdlions.util.ACTION;
+import com.bdlions.util.REQUEST_TYPE;
+import com.google.gson.Gson;
+
 import org.auction.udp.BackgroundUploader;
+import org.auction.udp.BackgroundWork;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,12 +54,21 @@ public class SingleCardLayout1 extends AppCompatActivity
     public Dialog imageUploadDialog;
     public int imgUploadType;
 
+    private TextView tvLC1FullName, tvLC1JobTitle, tvLC1Cell, tvLC1Email, tvLC1Website, tvLC1Address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_card_layout1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        tvLC1FullName = (TextView)findViewById(R.id.tv_lc1_full_name);
+        tvLC1JobTitle = (TextView)findViewById(R.id.tv_lc1_job_title);
+        tvLC1Cell = (TextView)findViewById(R.id.tv_lc1_cell);
+        tvLC1Email = (TextView)findViewById(R.id.tv_lc1_full_email);
+        tvLC1Website = (TextView)findViewById(R.id.tv_lc1_website);
+        tvLC1Address = (TextView)findViewById(R.id.tv_lc1_address);
 
         session = new SessionManager(getApplicationContext());
 
@@ -76,6 +94,74 @@ public class SingleCardLayout1 extends AppCompatActivity
 
         builder.setNegativeButton("Cancel", null);
         ad = builder.create();
+
+        this.initTemplate();
+    }
+
+    public void initTemplate()
+    {
+        String sessionId = session.getSessionId();
+        org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
+        packetHeader.setAction(ACTION.FETCH_PROFILE_INFO);
+        packetHeader.setRequestType(REQUEST_TYPE.REQUEST);
+        packetHeader.setSessionId(sessionId);
+        new BackgroundWork().execute(packetHeader, "{}", new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                if(msg != null)
+                {
+                    String stringProfile = (String)msg.obj;
+                    if(stringProfile != null)
+                    {
+                        System.out.println(stringProfile);
+                        Gson gson = new Gson();
+                        Profile profile = gson.fromJson(stringProfile, Profile.class);
+                        if(profile.isSuccess())
+                        {
+                            //set profile info into card template
+                            try
+                            {
+                                //set profile info
+                                JSONObject jsonProfileInfo  = new JSONObject(stringProfile);
+                                JSONObject jsonUserInfo  = new JSONObject(jsonProfileInfo.get("user").toString());
+                                JSONObject jsonCompanyInfo  = new JSONObject(jsonProfileInfo.get("company").toString());
+
+                                tvLC1FullName.setText(profile.getUser().getFirstName()+" "+profile.getUser().getLastName());
+                                tvLC1JobTitle.setText(profile.getDesignation());
+                                tvLC1Cell.setText(profile.getUser().getCell());
+                                tvLC1Email.setText(profile.getUser().getEmail());
+                                tvLC1Website.setText(profile.getCompany().getWebsite());
+                                tvLC1Address.setText(profile.getCompany().getAddress());
+
+                                //tvLC1FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
+                                //tvLC1JobTitle.setText(jsonProfileInfo.get("designation").toString());
+                                //tvLC1Cell.setText(jsonUserInfo.get("cell").toString());
+                                //tvLC1Email.setText(jsonUserInfo.get("email").toString());
+                                //tvLC1Website.setText(jsonCompanyInfo.get("website").toString());
+                                //tvLC1Address.setText(jsonCompanyInfo.get("address").toString());
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        //go to mail page
+                    }
+                }
+                else
+                {
+                    //go to mail page
+                }
+
+            }
+        });
     }
 
     @Override

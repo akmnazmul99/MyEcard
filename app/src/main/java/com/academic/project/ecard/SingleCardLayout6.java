@@ -17,9 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-import com.auction.dto.response.SignInResponse;
-import com.auction.util.ACTION;
-import com.auction.util.REQUEST_TYPE;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

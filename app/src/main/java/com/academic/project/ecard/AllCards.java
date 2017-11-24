@@ -18,9 +18,10 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.auction.dto.response.SignInResponse;
-import com.auction.util.ACTION;
-import com.auction.util.REQUEST_TYPE;
+import com.bdlions.dto.Profile;
+import com.bdlions.dto.response.SignInResponse;
+import com.bdlions.util.ACTION;
+import com.bdlions.util.REQUEST_TYPE;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -131,7 +132,7 @@ public class AllCards extends AppCompatActivity
     {
         String sessionId = session.getSessionId();
         org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
-        packetHeader.setAction(ACTION.FETCH_LOCATION_LIST);
+        packetHeader.setAction(ACTION.FETCH_PROFILE_INFO);
         packetHeader.setRequestType(REQUEST_TYPE.REQUEST);
         packetHeader.setSessionId(sessionId);
         new BackgroundWork().execute(packetHeader, "{}", new Handler(){
@@ -139,27 +140,37 @@ public class AllCards extends AppCompatActivity
             public void handleMessage(Message msg) {
                 if(msg != null)
                 {
-                    String stringSignInResponse = (String)msg.obj;
-                    if(stringSignInResponse != null)
+                    String stringProfile = (String)msg.obj;
+                    if(stringProfile != null)
                     {
-                        System.out.println(stringSignInResponse);
+                        System.out.println(stringProfile);
                         Gson gson = new Gson();
-                        SignInResponse signInResponse = gson.fromJson(stringSignInResponse, SignInResponse.class);
-                        if(signInResponse.isSuccess())
+                        Profile profile = gson.fromJson(stringProfile, Profile.class);
+                        //SignInResponse signInResponse = gson.fromJson(stringSignInResponse, SignInResponse.class);
+                        if(profile.isSuccess())
                         {
                             //set profile info into card template
                             try
                             {
                                 //set profile info
-                                JSONObject jsonProfileInfo  = new JSONObject(stringSignInResponse);
+                                JSONObject jsonProfileInfo  = new JSONObject(stringProfile);
                                 JSONObject jsonUserInfo  = new JSONObject(jsonProfileInfo.get("user").toString());
                                 JSONObject jsonCompanyInfo  = new JSONObject(jsonProfileInfo.get("company").toString());
-                                tvLC1FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
-                                tvLC1JobTitle.setText(jsonProfileInfo.get("designation").toString());
-                                tvLC1Cell.setText(jsonUserInfo.get("cell").toString());
-                                tvLC1Email.setText(jsonUserInfo.get("email").toString());
-                                tvLC1Website.setText(jsonCompanyInfo.get("website").toString());
-                                tvLC1Address.setText(jsonCompanyInfo.get("address").toString());
+
+                                tvLC1FullName.setText(profile.getUser().getFirstName()+" "+profile.getUser().getLastName());
+                                tvLC1JobTitle.setText(profile.getDesignation());
+                                tvLC1Cell.setText(profile.getUser().getCell());
+                                tvLC1Email.setText(profile.getUser().getEmail());
+                                tvLC1Website.setText(profile.getCompany().getWebsite());
+                                tvLC1Address.setText(profile.getCompany().getAddress());
+
+                                //tvLC1FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
+                                //tvLC1JobTitle.setText(jsonProfileInfo.get("designation").toString());
+                                //tvLC1Cell.setText(jsonUserInfo.get("cell").toString());
+                                //tvLC1Email.setText(jsonUserInfo.get("email").toString());
+                                //tvLC1Website.setText(jsonCompanyInfo.get("website").toString());
+                                //tvLC1Address.setText(jsonCompanyInfo.get("address").toString());
+
 
                                 tvLC2FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
                                 tvLC2JobTitle.setText(jsonProfileInfo.get("designation").toString());
@@ -214,7 +225,7 @@ public class AllCards extends AppCompatActivity
                         else
                         {
                             AlertDialog.Builder  sign_in_builder = new AlertDialog.Builder(AllCards.this);
-                            sign_in_builder.setMessage(signInResponse.getMessage())
+                            sign_in_builder.setMessage(profile.getMessage())
                                     .setCancelable(false)
                                     .setPositiveButton("", new DialogInterface.OnClickListener() {
                                         @Override

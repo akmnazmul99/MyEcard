@@ -12,9 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.auction.dto.response.SignInResponse;
-import com.auction.util.ACTION;
-import com.auction.util.REQUEST_TYPE;
+import com.bdlions.dto.response.SignInResponse;
+import com.bdlions.util.ACTION;
+import com.bdlions.util.REQUEST_TYPE;
 import com.google.gson.Gson;
 
 import org.auction.udp.BackgroundWork;
@@ -50,7 +50,7 @@ public class CompleteProfile extends AppCompatActivity {
     {
         String sessionId = session.getSessionId();
         org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
-        packetHeader.setAction(ACTION.FETCH_LOCATION_LIST);
+        packetHeader.setAction(ACTION.FETCH_PROFILE_INFO);
         packetHeader.setRequestType(REQUEST_TYPE.REQUEST);
         packetHeader.setSessionId(sessionId);
         new BackgroundWork().execute(packetHeader, "{}", new Handler(){
@@ -131,7 +131,7 @@ public class CompleteProfile extends AppCompatActivity {
                             jsonProfileInfo.put("user", jsonUserInfo);
 
                             org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
-                            packetHeader.setAction(ACTION.FETCH_PRODUCT_INFO);
+                            packetHeader.setAction(ACTION.UPDATE_PROFILE_INFO);
                             packetHeader.setRequestType(REQUEST_TYPE.UPDATE);
                             new BackgroundWork().execute(packetHeader, jsonProfileInfo.toString(), new Handler(){
                                 @Override

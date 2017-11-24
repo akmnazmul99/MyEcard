@@ -18,9 +18,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.auction.dto.response.SignInResponse;
-import com.auction.util.ACTION;
-import com.auction.util.REQUEST_TYPE;
+import com.bdlions.dto.Profile;
+import com.bdlions.dto.response.SignInResponse;
+import com.bdlions.util.ACTION;
+import com.bdlions.util.REQUEST_TYPE;
 import com.google.gson.Gson;
 
 import org.auction.udp.BackgroundWork;
@@ -66,7 +67,7 @@ public class UserProfile extends AppCompatActivity
     {
         String sessionId = session.getSessionId();
         org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
-        packetHeader.setAction(ACTION.FETCH_LOCATION_LIST);
+        packetHeader.setAction(ACTION.FETCH_PROFILE_INFO);
         packetHeader.setRequestType(REQUEST_TYPE.REQUEST);
         packetHeader.setSessionId(sessionId);
         new BackgroundWork().execute(packetHeader, "{}", new Handler(){
@@ -74,27 +75,35 @@ public class UserProfile extends AppCompatActivity
             public void handleMessage(Message msg) {
                 if(msg != null)
                 {
-                    String stringSignInResponse = (String)msg.obj;
-                    if(stringSignInResponse != null)
+                    String stringProfile = (String)msg.obj;
+                    if(stringProfile != null)
                     {
-                        System.out.println(stringSignInResponse);
+                        System.out.println(stringProfile);
                         Gson gson = new Gson();
-                        SignInResponse signInResponse = gson.fromJson(stringSignInResponse, SignInResponse.class);
-                        if(signInResponse.isSuccess())
+                        Profile profile = gson.fromJson(stringProfile, Profile.class);
+                        if(profile.isSuccess())
                         {
                             try
                             {
                                 //set profile info
-                                JSONObject jsonProfileInfo  = new JSONObject(stringSignInResponse);
+                                JSONObject jsonProfileInfo  = new JSONObject(stringProfile);
                                 JSONObject jsonUserInfo  = new JSONObject(jsonProfileInfo.get("user").toString());
                                 JSONObject jsonCompanyInfo  = new JSONObject(jsonProfileInfo.get("company").toString());
                                 System.out.println(jsonProfileInfo);
-                                tvFullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
-                                tvJobTitle.setText(jsonProfileInfo.get("designation").toString());
-                                tvCompanyTitle.setText(jsonCompanyInfo.get("title").toString());
-                                tvCell.setText(jsonUserInfo.get("cell").toString());
-                                tvEmail.setText(jsonUserInfo.get("email").toString());
-                                tvJobTitle2.setText(jsonProfileInfo.get("designation").toString());
+
+                                tvFullName.setText(profile.getUser().getFirstName()+" "+profile.getUser().getLastName());
+                                tvJobTitle.setText(profile.getDesignation());
+                                tvCompanyTitle.setText(profile.getCompany().getTitle());
+                                tvCell.setText(profile.getUser().getCell());
+                                tvEmail.setText(profile.getUser().getEmail());
+                                tvJobTitle2.setText(profile.getDesignation());
+
+                                //tvFullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
+                                //tvJobTitle.setText(jsonProfileInfo.get("designation").toString());
+                                //tvCompanyTitle.setText(jsonCompanyInfo.get("title").toString());
+                                //tvCell.setText(jsonUserInfo.get("cell").toString());
+                                //tvEmail.setText(jsonUserInfo.get("email").toString());
+                                //tvJobTitle2.setText(jsonProfileInfo.get("designation").toString());
                             }
                             catch(Exception ex)
                             {
@@ -104,7 +113,7 @@ public class UserProfile extends AppCompatActivity
                         else
                         {
                             AlertDialog.Builder  sign_in_builder = new AlertDialog.Builder(UserProfile.this);
-                            sign_in_builder.setMessage(signInResponse.getMessage())
+                            sign_in_builder.setMessage(profile.getMessage())
                                     .setCancelable(false)
                                     .setPositiveButton("", new DialogInterface.OnClickListener() {
                                         @Override
