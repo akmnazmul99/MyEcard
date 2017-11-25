@@ -54,6 +54,8 @@ public class SingleCardLayout1 extends AppCompatActivity
     public Dialog imageUploadDialog;
     public int imgUploadType;
 
+    public String imgName = "";
+
     private TextView tvLC1FullName, tvLC1JobTitle, tvLC1Cell, tvLC1Email, tvLC1Website, tvLC1Address;
 
     @Override
@@ -228,8 +230,17 @@ public class SingleCardLayout1 extends AppCompatActivity
                 startActivityForResult(email_intent, 0);
                 break;
             case 1:
-                Intent linkedin_intent = new Intent(SingleCardLayout1.this, Linkedin.class);
-                startActivityForResult(linkedin_intent, 0);
+                if(imgName == null || imgName.equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "Please save your card.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Intent linkedinIntent = new Intent(SingleCardLayout1.this, Linkedin.class);
+                    linkedinIntent.putExtra("imgName", imgName);
+                    startActivityForResult(linkedinIntent, 0);
+                    return;
+                }
                 break;
             case 2:
 
@@ -243,6 +254,7 @@ public class SingleCardLayout1 extends AppCompatActivity
 
                 final String filePath = saveToInternalStorage(bmp);
 
+
                 try {
 
                     new BackgroundUploader().execute(filePath, new Handler(){
@@ -251,7 +263,12 @@ public class SingleCardLayout1 extends AppCompatActivity
                             imageUploadDialog.dismiss();
                             try
                             {
-                                String img = (String)msg.obj;
+                                if(msg != null)
+                                {
+                                    //image is saved
+                                    Toast.makeText(getApplicationContext(), "Your card is saved successfully.", Toast.LENGTH_LONG).show();
+                                }
+                                /*String img = (String)msg.obj;
                                 String fileUrl = "http://roomauction.co.uk/" + "uploads/" + img;
 
 //                                ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -262,7 +279,7 @@ public class SingleCardLayout1 extends AppCompatActivity
                                 Intent print_intent = new Intent(SingleCardLayout1.this, PrintCard.class);
                                 print_intent.putExtra("cardImage", filePath);
 
-                                startActivityForResult(print_intent, 0);
+                                startActivityForResult(print_intent, 0);*/
 
                             }
                             catch(Exception ex)
@@ -287,6 +304,7 @@ public class SingleCardLayout1 extends AppCompatActivity
             directory.mkdirs();
         }
         UUID random = UUID.randomUUID();
+        imgName = random + ".png";
         // Create imageDir
         File mypath=new File(directory, random + ".png");
 
