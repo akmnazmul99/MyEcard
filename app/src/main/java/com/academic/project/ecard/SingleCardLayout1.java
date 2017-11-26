@@ -48,7 +48,7 @@ import java.util.UUID;
 public class SingleCardLayout1 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DialogInterface.OnClickListener {
     SessionManager session;
-    private static String[] items = {"Email","Linkedin","Print"};
+    private static String[] items = {"Email", "Linkedin", "Save Card", "Facebook"};
     private Button button_open_dialog;
     AlertDialog ad;
     public Dialog imageUploadDialog;
