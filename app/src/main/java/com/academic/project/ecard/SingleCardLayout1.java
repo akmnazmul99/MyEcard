@@ -48,7 +48,7 @@ import java.util.UUID;
 public class SingleCardLayout1 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DialogInterface.OnClickListener {
     SessionManager session;
-    private static String[] items = {"Email", "Linkedin", "Save Card", "Facebook"};
+    private static String[] items = {"Save Card", "Facebook", "Linkedin", "Email"};
     private Button button_open_dialog;
     AlertDialog ad;
     public Dialog imageUploadDialog;
@@ -222,41 +222,17 @@ public class SingleCardLayout1 extends AppCompatActivity
     @Override
     public void onClick(DialogInterface dialog, int pos) {
         imageUploadDialog = new Dialog(SingleCardLayout1.this);
-
         switch( pos )
         {
             case 0:
-                Intent email_intent = new Intent(SingleCardLayout1.this, EmailCompose.class);
-                startActivityForResult(email_intent, 0);
-                break;
-            case 1:
-                if(imgName == null || imgName.equals(""))
-                {
-                    Toast.makeText(getApplicationContext(), "Please save your card.", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Intent linkedinIntent = new Intent(SingleCardLayout1.this, Linkedin.class);
-                    linkedinIntent.putExtra("imgName", imgName);
-                    startActivityForResult(linkedinIntent, 0);
-                    return;
-                }
-                break;
-            case 2:
-
                 imageUploadDialog.show();
-
                 LinearLayout idCardDesign = (LinearLayout)findViewById(R.id.idCardDesign);
                 idCardDesign.setDrawingCacheEnabled(true);
                 idCardDesign.buildDrawingCache(true);
                 Bitmap bmp = Bitmap.createBitmap(idCardDesign.getDrawingCache());
                 idCardDesign.setDrawingCacheEnabled(false);
-
                 final String filePath = saveToInternalStorage(bmp);
-
-
                 try {
-
                     new BackgroundUploader().execute(filePath, new Handler(){
                         @Override
                         public void handleMessage(Message msg) {
@@ -270,17 +246,12 @@ public class SingleCardLayout1 extends AppCompatActivity
                                 }
                                 /*String img = (String)msg.obj;
                                 String fileUrl = "http://roomauction.co.uk/" + "uploads/" + img;
-
 //                                ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //                                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
 //                                byte[] byteArray = stream.toByteArray();
-
-
                                 Intent print_intent = new Intent(SingleCardLayout1.this, PrintCard.class);
                                 print_intent.putExtra("cardImage", filePath);
-
                                 startActivityForResult(print_intent, 0);*/
-
                             }
                             catch(Exception ex)
                             {
@@ -291,7 +262,28 @@ public class SingleCardLayout1 extends AppCompatActivity
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
-
+                break;
+            case 1:
+                //add logic to share card in facebook
+                break;
+            case 2:
+                //logic to share card in linkedin
+                if(imgName == null || imgName.equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "Please save your card.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Intent linkedinIntent = new Intent(SingleCardLayout1.this, Linkedin.class);
+                    linkedinIntent.putExtra("imgName", imgName);
+                    startActivityForResult(linkedinIntent, 0);
+                    return;
+                }
+                break;
+            case 3:
+                //logic to send card via email
+                Intent email_intent = new Intent(SingleCardLayout1.this, EmailCompose.class);
+                startActivityForResult(email_intent, 0);
                 break;
         }
     }
