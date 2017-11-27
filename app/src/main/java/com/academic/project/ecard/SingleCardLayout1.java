@@ -48,7 +48,7 @@ import java.util.UUID;
 public class SingleCardLayout1 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DialogInterface.OnClickListener {
     SessionManager session;
-    private static String[] items = {"Save Card", "Facebook", "Linkedin", "Email"};
+    private static String[] items = {"Facebook", "Linkedin", "Email"};
     private Button button_open_dialog;
     AlertDialog ad;
     public Dialog imageUploadDialog;
@@ -83,21 +83,16 @@ public class SingleCardLayout1 extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.single_card_layout1_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        button_open_dialog = (Button)findViewById(R.id.b_open_dialog_share_box);
-        button_open_dialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ad.show();
-            }
-        });
+
         AlertDialog.Builder builder = new  AlertDialog.Builder(this);
         builder.setTitle("Share via");
         builder.setItems(items, this);
 
         builder.setNegativeButton("Cancel", null);
         ad = builder.create();
-
+        imageUploadDialog = new Dialog(SingleCardLayout1.this);
         this.initTemplate();
+        this.onClickShareCardButtonListener();
     }
 
     public void initTemplate()
@@ -166,6 +161,46 @@ public class SingleCardLayout1 extends AppCompatActivity
         });
     }
 
+    public void onClickShareCardButtonListener()
+    {
+        button_open_dialog = (Button)findViewById(R.id.b_open_dialog_share_box);
+        button_open_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageUploadDialog.show();
+                LinearLayout idCardDesign = (LinearLayout)findViewById(R.id.idCardDesign);
+                idCardDesign.setDrawingCacheEnabled(true);
+                idCardDesign.buildDrawingCache(true);
+                Bitmap bmp = Bitmap.createBitmap(idCardDesign.getDrawingCache());
+                idCardDesign.setDrawingCacheEnabled(false);
+                final String filePath = saveToInternalStorage(bmp);
+                try {
+                    new BackgroundUploader().execute(filePath, new Handler(){
+                        @Override
+                        public void handleMessage(Message msg) {
+                            imageUploadDialog.dismiss();
+                            try
+                            {
+                                if(msg != null)
+                                {
+                                    ad.show();
+                                }
+                            }
+                            catch(Exception ex)
+                            {
+                                Toast.makeText(getApplicationContext(), "Unable to save image. Please try again later.", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
+            }
+        });
+
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -221,52 +256,24 @@ public class SingleCardLayout1 extends AppCompatActivity
 
     @Override
     public void onClick(DialogInterface dialog, int pos) {
-        imageUploadDialog = new Dialog(SingleCardLayout1.this);
+        //imageUploadDialog = new Dialog(SingleCardLayout1.this);
         switch( pos )
         {
             case 0:
-                imageUploadDialog.show();
-                LinearLayout idCardDesign = (LinearLayout)findViewById(R.id.idCardDesign);
-                idCardDesign.setDrawingCacheEnabled(true);
-                idCardDesign.buildDrawingCache(true);
-                Bitmap bmp = Bitmap.createBitmap(idCardDesign.getDrawingCache());
-                idCardDesign.setDrawingCacheEnabled(false);
-                final String filePath = saveToInternalStorage(bmp);
-                try {
-                    new BackgroundUploader().execute(filePath, new Handler(){
-                        @Override
-                        public void handleMessage(Message msg) {
-                            imageUploadDialog.dismiss();
-                            try
-                            {
-                                if(msg != null)
-                                {
-                                    //image is saved
-                                    Toast.makeText(getApplicationContext(), "Your card is saved successfully.", Toast.LENGTH_LONG).show();
-                                }
-                                /*String img = (String)msg.obj;
-                                String fileUrl = "http://roomauction.co.uk/" + "uploads/" + img;
-//                                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                                byte[] byteArray = stream.toByteArray();
-                                Intent print_intent = new Intent(SingleCardLayout1.this, PrintCard.class);
-                                print_intent.putExtra("cardImage", filePath);
-                                startActivityForResult(print_intent, 0);*/
-                            }
-                            catch(Exception ex)
-                            {
-                                Toast.makeText(getApplicationContext(), "Unable to upload image. Please try again later.", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                }catch (Exception ex){
-                    ex.printStackTrace();
+                //logic to share card in facebook
+                if(imgName == null || imgName.equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "Please save your card.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Intent facebookIntent = new Intent(SingleCardLayout1.this, Facebook.class);
+                    facebookIntent.putExtra("imgName", imgName);
+                    startActivityForResult(facebookIntent, 0);
+                    return;
                 }
                 break;
             case 1:
-                //add logic to share card in facebook
-                break;
-            case 2:
                 //logic to share card in linkedin
                 if(imgName == null || imgName.equals(""))
                 {
@@ -280,7 +287,7 @@ public class SingleCardLayout1 extends AppCompatActivity
                     return;
                 }
                 break;
-            case 3:
+            case 2:
                 //logic to send card via email
                 Intent email_intent = new Intent(SingleCardLayout1.this, EmailCompose.class);
                 startActivityForResult(email_intent, 0);

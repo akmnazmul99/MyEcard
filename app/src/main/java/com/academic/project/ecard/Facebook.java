@@ -42,13 +42,18 @@ public class Facebook extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
     public void onClickShareFacebookButtonListener(){
-        buttonShareFacebook = (Button)findViewById(R.id.linkedin_send_button);
+        buttonShareFacebook = (Button)findViewById(R.id.facebook_send_button);
         buttonShareFacebook.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://signtechbd.com:8080/ECardServer/linkedin/template?name="+imgName));
-                        //startActivity(browserIntent);
+
+
+
+
+
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://signtechbd.com:8080/ECardServer/facebook/template?name="+imgName));
+                        startActivity(browserIntent);
                     }
                 }
         );
