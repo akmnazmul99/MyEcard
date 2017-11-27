@@ -25,7 +25,7 @@ import org.json.JSONObject;
 
 public class EditProfile extends AppCompatActivity {
     private static Button button_select_card;
-    private EditText etFirstName, etLastName, etCell, etDepartment, etJobTitle;
+    private EditText etFirstName, etLastName, etCell, etCompany, etDepartment, etJobTitle;
     SessionManager session;
     public static String strProfileInfo;
     public Profile profileInfo = new Profile();
@@ -42,6 +42,7 @@ public class EditProfile extends AppCompatActivity {
         etFirstName = (EditText) findViewById(R.id.et_user_first_name);
         etLastName = (EditText) findViewById(R.id.et_user_last_name);
         etCell = (EditText) findViewById(R.id.et_cell);
+        etCompany = (EditText) findViewById(R.id.et_company);
         etDepartment = (EditText) findViewById(R.id.et_department);
         etJobTitle = (EditText) findViewById(R.id.et_job_title);
 

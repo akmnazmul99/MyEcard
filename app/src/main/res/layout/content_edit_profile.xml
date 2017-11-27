@@ -90,6 +90,24 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
+                        android:text="Company"
+                        android:textSize="15dp"
+                        android:textColor="#ff6600"
+                        android:textStyle="italic|bold|normal"
+                        android:typeface="serif" />
+                    <EditText
+                        android:id="@+id/et_company"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/card_info_edit_text" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:text="Deparment"
                         android:textSize="15dp"
                         android:textColor="#ff6600"

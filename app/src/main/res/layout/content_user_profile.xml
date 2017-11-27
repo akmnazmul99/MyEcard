@@ -33,13 +33,7 @@
         <!--<include layout="@layout/select_card_layout_content_1"/>-->
         <!--</LinearLayout>-->
         <!--</LinearLayout>-->
-        <com.academic.project.ecard.RoundedImageView
-            android:id="@+id/contact_imageView_round_1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center|top"
-            android:src="@drawable/contact_1" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
