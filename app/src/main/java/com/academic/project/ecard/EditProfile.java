@@ -46,7 +46,7 @@ public class EditProfile extends AppCompatActivity {
         etDepartment = (EditText) findViewById(R.id.et_department);
         etJobTitle = (EditText) findViewById(R.id.et_job_title);
 
-        onClickSelectCardButtonListener();
+        onClickEditProfileButtonListener();
 
         this.initTemplate();
     }
@@ -86,6 +86,8 @@ public class EditProfile extends AppCompatActivity {
                                 etCell.setText(profile.getUser().getCell());
                                 etDepartment.setText(profile.getDepartment());
                                 etJobTitle.setText(profile.getDesignation());
+
+                                etCompany.setText(profile.getCompany().getTitle());
 
                                 //etFirstName.setText(jsonUserInfo.get("firstName").toString());
                                 //etLastName.setText(jsonUserInfo.get("lastName").toString());
@@ -135,7 +137,7 @@ public class EditProfile extends AppCompatActivity {
         });
     }
 
-    public void onClickSelectCardButtonListener(){
+    public void onClickEditProfileButtonListener(){
         button_select_card = (Button)findViewById(R.id.select_card_button);
         button_select_card.setOnClickListener(
                 new View.OnClickListener() {
@@ -154,6 +156,8 @@ public class EditProfile extends AppCompatActivity {
 
                                 profileInfo.setDepartment(etDepartment.getText().toString());
                                 profileInfo.setDesignation(etJobTitle.getText().toString());
+
+                                profileInfo.getCompany().setTitle(etCompany.getText().toString());
 
                                 //jsonUserInfo.put("firstName", etFirstName.getText());
                                 //jsonUserInfo.put("lastName", etLastName.getText());
