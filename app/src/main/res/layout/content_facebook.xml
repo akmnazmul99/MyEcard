@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/action_bar_height"
-    tools:context="com.academic.project.ecard.Linkedin"
-    tools:showIn="@layout/app_bar_linkedin">
+    tools:context="com.academic.project.ecard.Facebook"
+    tools:showIn="@layout/app_bar_facebook">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,24 +14,24 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:background="@drawable/main_bg">
-    <TextView
-        android:id="@+id/tv_card_link"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center|top"
-        android:layout_marginTop="25dp"
-        android:text="Shared_card_2016_2_44_786"
-        android:textColor="#FF6600"
-        android:textSize="15dp"/>
+        <TextView
+            android:id="@+id/tv_card_link"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="25dp"
+            android:text="Shared_card_2016_2_44_786"
+            android:textColor="#FF6600"
+            android:textSize="15dp"/>
         <Button
-            android:id ="@+id/linkedin_send_button"
+            android:id ="@+id/facebook_send_button"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_gravity="right"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:text="Linkedin Share"
+            android:text="Faceboo Share"
             android:textAllCaps="false"
             android:background="#fff"
             android:paddingLeft="10dp"

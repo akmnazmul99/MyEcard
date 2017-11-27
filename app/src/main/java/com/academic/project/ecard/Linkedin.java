@@ -31,6 +31,8 @@ public class Linkedin extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
         imgName = extras.getString("imgName");
 
+        onClickShareLinkedInButtonListener();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -40,7 +42,7 @@ public class Linkedin extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        onClickShareLinkedInButtonListener();
+
     }
 
     public void onClickShareLinkedInButtonListener(){
