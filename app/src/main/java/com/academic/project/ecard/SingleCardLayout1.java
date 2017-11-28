@@ -289,8 +289,9 @@ public class SingleCardLayout1 extends AppCompatActivity
                 break;
             case 2:
                 //logic to send card via email
-                Intent email_intent = new Intent(SingleCardLayout1.this, EmailCompose.class);
-                startActivityForResult(email_intent, 0);
+                Intent emailIntent = new Intent(SingleCardLayout1.this, EmailCompose.class);
+                emailIntent.putExtra("imgName", imgName);
+                startActivityForResult(emailIntent, 0);
                 break;
         }
     }

@@ -1,18 +1,42 @@
 package com.academic.project.ecard;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.bdlions.dto.Mail;
+import com.bdlions.dto.Profile;
+import com.bdlions.dto.response.SignInResponse;
+import com.bdlions.util.ACTION;
+import com.bdlions.util.REQUEST_TYPE;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.auction.udp.BackgroundWork;
+import org.json.JSONObject;
 
 public class EmailCompose extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public String imgName = "";
+    public Button btnSendEmail;
+    public EditText etMailTo;
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +45,13 @@ public class EmailCompose extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.email_compose_toolbar);
         setSupportActionBar(toolbar);
 
+        // Session Manager
+        session = new SessionManager(getApplicationContext());
+
+        Bundle extras = getIntent().getExtras();
+        imgName = extras.getString("imgName");
+
+        etMailTo = (EditText) findViewById(R.id.et_to_email_address);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -31,7 +62,63 @@ public class EmailCompose extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.email_compose_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        onClickSendEmailButtonListener();
 
+    }
+
+    public void onClickSendEmailButtonListener(){
+        btnSendEmail = (Button)findViewById(R.id.email_send_button);
+        btnSendEmail.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Mail mail = new Mail();
+                        mail.setTo(etMailTo.getText().toString());
+                        mail.setImg(imgName);
+
+                        GsonBuilder gsonBuilder = new GsonBuilder();
+                        Gson gson = gsonBuilder.create();
+                        String mailInfoString = gson.toJson(mail);
+
+                        String sessionId = session.getSessionId();
+                        org.bdlions.transport.packet.PacketHeaderImpl packetHeader = new org.bdlions.transport.packet.PacketHeaderImpl();
+                        packetHeader.setAction(ACTION.SEND_CARD_VIA_EMAIL);
+                        packetHeader.setRequestType(REQUEST_TYPE.REQUEST);
+                        packetHeader.setSessionId(sessionId);
+                        new BackgroundWork().execute(packetHeader, mailInfoString, new Handler(){
+                            @Override
+                            public void handleMessage(Message msg) {
+                                if(msg != null)
+                                {
+                                    String stringProfile = (String)msg.obj;
+                                    if(stringProfile != null)
+                                    {
+                                        System.out.println(stringProfile);
+                                        Gson gson = new Gson();
+                                        SignInResponse response = gson.fromJson(stringProfile, SignInResponse.class);
+                                        if(response.isSuccess())
+                                        {
+                                            Toast.makeText(getApplicationContext(), "Email sent successfully.", Toast.LENGTH_LONG).show();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(getApplicationContext(), "Unable to send email. Please try later", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Unable to send email. Please try later", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(), "Unable to send email. Please try later", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    }
+                }
+        );
     }
 
     @Override
