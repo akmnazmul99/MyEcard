@@ -12,10 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bdlions.dto.Profile;
+import com.bdlions.dto.User;
 import com.bdlions.dto.response.SignInResponse;
 import com.bdlions.util.ACTION;
 import com.bdlions.util.REQUEST_TYPE;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.auction.udp.BackgroundWork;
 import org.json.JSONObject;
@@ -47,6 +50,21 @@ public class SignUp extends AppCompatActivity {
                     public void onClick(View v) {
                         try
                         {
+                            Profile profile = new Profile();
+                            profile.setCompanyId(1);
+                            profile.setDesignation("");
+                            profile.setDepartment("");
+                            User user = new User();
+                            user.setFirstName(etFirstName.getText().toString());
+                            user.setLastName(etLastName.getText().toString());
+                            user.setEmail(etEmail.getText().toString());
+                            user.setPassword(etPassword.getText().toString());
+                            profile.setUser(user);
+                            GsonBuilder gsonBuilder = new GsonBuilder();
+                            Gson gson = gsonBuilder.create();
+                            String profileString = gson.toJson(profile);
+
+
                             JSONObject jsonProfileInfo  = new JSONObject();
                             //a default company id is set
                             jsonProfileInfo.put("companyId",1);
@@ -65,7 +83,7 @@ public class SignUp extends AppCompatActivity {
                             packetHeader.setAction(ACTION.SIGN_UP);
                             packetHeader.setRequestType(REQUEST_TYPE.AUTH);
                             packetHeader.setSessionId("");
-                            new BackgroundWork().execute(packetHeader, jsonProfileInfo.toString(), new Handler(){
+                            new BackgroundWork().execute(packetHeader, profileString, new Handler(){
                                 @Override
                                 public void handleMessage(Message msg) {
                                     if(msg != null )
