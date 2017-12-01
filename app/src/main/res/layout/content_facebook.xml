@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center|top"
             android:layout_marginTop="25dp"
-            android:text="Shared_card_2016_2_44_786"
+            android:text="Share this card..."
             android:textColor="#FF6600"
             android:textSize="15dp"/>
         <Button
@@ -31,7 +31,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:text="Faceboo Share"
+            android:text="Facebook Share"
             android:textAllCaps="false"
             android:background="#fff"
             android:paddingLeft="10dp"

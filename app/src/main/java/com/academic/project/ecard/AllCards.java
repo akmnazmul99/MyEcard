@@ -37,7 +37,8 @@ public class AllCards extends AppCompatActivity
                             business_card_layout_5,
                             business_card_layout_6,
                             business_card_layout_7;
-        private TextView tvLC1FullName, tvLC1JobTitle, tvLC1Cell, tvLC1Email, tvLC1Website, tvLC1Address,
+        private TextView
+                tvLC1FullName, tvLC1JobTitle, tvLC1Cell, tvLC1Email, tvLC1Website, tvLC1Address,
                 tvLC2FullName, tvLC2JobTitle, tvLC2Cell, tvLC2Email, tvLC2Website, tvLC2Address,tvLC2Company,
                 tvLC3FullName, tvLC3JobTitle, tvLC3Cell, tvLC3Email, tvLC3Website, tvLC3Address,tvLC3Company,
                 tvLC4FullName, tvLC4JobTitle, tvLC4Cell, tvLC4Email, tvLC4Website, tvLC4Address,tvLC4Company,
