@@ -89,9 +89,9 @@ public class EditProfile extends AppCompatActivity {
                                 etLastName.setText(profile.getUser().getLastName());
                                 etCompany.setText(profile.getCompany().getTitle());
                                 etJobTitle.setText(profile.getDesignation());
-                                etAddress.setText(companyInfo.getAddress());
+                                etAddress.setText(profile.getCompany().getAddress());
                                 etCell.setText(profile.getUser().getCell());
-                                etWebsite.setText(companyInfo.getWebsite());
+                                etWebsite.setText(profile.getCompany().getWebsite());
 
 
                             }
@@ -154,9 +154,9 @@ public class EditProfile extends AppCompatActivity {
                                 profileInfo.getUser().setLastName(etLastName.getText().toString());
                                 profileInfo.getCompany().setTitle(etCompany.getText().toString());
                                 profileInfo.setDesignation(etJobTitle.getText().toString());
-                                companyInfo.setAddress(etAddress.getText().toString());
+                                profileInfo.getCompany().setAddress(etAddress.getText().toString());
                                 profileInfo.getUser().setCell(etCell.getText().toString());
-                                companyInfo.setWebsite(etWebsite.getText().toString());
+                                profileInfo.getCompany().setWebsite(etWebsite.getText().toString());
 
 
                                 jsonProfileInfo.put("user", jsonUserInfo.toString());
