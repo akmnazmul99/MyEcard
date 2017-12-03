@@ -132,7 +132,7 @@ public class Login extends AppCompatActivity {
         );
     }
     public void onClickForgetPasswordButtonListener(){
-        button_forget_password = (Button)findViewById(R.id.login_forget_password_button);
+        /*button_forget_password = (Button)findViewById(R.id.login_forget_password_button);
         button_forget_password.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -141,7 +141,7 @@ public class Login extends AppCompatActivity {
                         startActivity(login_intent);
                     }
                 }
-        );
+        );*/
     }
 //    public void onCheckboxClicked(View view) {
         // Is the view now checked?
