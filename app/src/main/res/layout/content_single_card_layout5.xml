@@ -4,54 +4,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/action_bar_height"
+    android:orientation="vertical"
     tools:context="com.academic.project.ecard.SingleCardLayout5"
-    tools:showIn="@layout/app_bar_single_card_layout5">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_padding"
-        android:background="@drawable/main_bg">
-        <ScrollView
-            android:layout_width="wrap_content"
+    tools:showIn="@layout/app_bar_single_card_layout5" android:background="@drawable/main_bg"
+    android:weightSum="1">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
+        android:scrollbarTrackVertical="@drawable/scrollbar_vertical_track">
+        <LinearLayout
+            android:id="@+id/idCardDesign5"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
-            android:scrollbarTrackVertical="@drawable/scrollbar_vertical_track">
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+            <View
+                android:state_pressed="true"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:drawable="@android:drawable/list_selector_background"
+                android:background="@drawable/card_layout_style_5"/>
             <LinearLayout
+                android:id="@+id/business_card_5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:orientation="vertical">
-                <View
-                    android:state_pressed="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="160dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:drawable="@android:drawable/list_selector_background"
-                    android:background="@drawable/card_layout_style_5"/>
-                <LinearLayout
-                    android:id="@+id/business_card_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:orientation="vertical"
-                    android:layout_marginTop="-150dp">
-                    <include layout="@layout/select_card_layout_content_5"/>
-                </LinearLayout>
+                android:layout_height="160dp"
+                android:orientation="vertical"
+                android:layout_marginTop="-150dp">
+                <include layout="@layout/select_card_layout_content_5"/>
             </LinearLayout>
-            <Button
-                android:id="@+id/b_open_dialog_share_box"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
-                android:textColor="#FF6600"
-                android:textSize="18dp"
-                android:drawableLeft="@android:drawable/ic_menu_share"
-                android:textAllCaps="false"
-                android:gravity="center"
-                android:text="Share Card" />
-        </ScrollView>
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/b_open_dialog_share_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:textColor="#FF6600"
+        android:textSize="18dp"
+        android:drawableLeft="@android:drawable/ic_menu_share"
+        android:textAllCaps="false"
+        android:gravity="center"
+        android:text="Share Card" />
 </LinearLayout>

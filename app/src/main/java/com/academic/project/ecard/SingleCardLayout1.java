@@ -168,7 +168,7 @@ public class SingleCardLayout1 extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 imageUploadDialog.show();
-                LinearLayout idCardDesign = (LinearLayout)findViewById(R.id.idCardDesign);
+                LinearLayout idCardDesign = (LinearLayout)findViewById(R.id.idCardDesign1);
                 idCardDesign.setDrawingCacheEnabled(true);
                 idCardDesign.buildDrawingCache(true);
                 Bitmap bmp = Bitmap.createBitmap(idCardDesign.getDrawingCache());
