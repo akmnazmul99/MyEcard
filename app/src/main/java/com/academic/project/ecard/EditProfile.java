@@ -25,7 +25,7 @@ import org.json.JSONObject;
 
 public class EditProfile extends AppCompatActivity {
     private static Button button_select_card;
-    private EditText etFirstName, etLastName, etCell, etCompany, etDepartment, etJobTitle;
+    private EditText etFirstName, etLastName, etCompany, etJobTitle, etAddress, etCell, etWebsite;
     SessionManager session;
     public static String strProfileInfo;
     public Profile profileInfo = new Profile();
@@ -41,10 +41,12 @@ public class EditProfile extends AppCompatActivity {
 
         etFirstName = (EditText) findViewById(R.id.et_user_first_name);
         etLastName = (EditText) findViewById(R.id.et_user_last_name);
-        etCell = (EditText) findViewById(R.id.et_cell);
         etCompany = (EditText) findViewById(R.id.et_company);
-        etDepartment = (EditText) findViewById(R.id.et_department);
         etJobTitle = (EditText) findViewById(R.id.et_job_title);
+        etAddress = (EditText) findViewById(R.id.et_address);
+        etCell = (EditText) findViewById(R.id.et_cell);
+        etWebsite = (EditText) findViewById(R.id.et_website);
+
 
         onClickEditProfileButtonListener();
 
@@ -83,17 +85,13 @@ public class EditProfile extends AppCompatActivity {
 
                                 etFirstName.setText(profile.getUser().getFirstName());
                                 etLastName.setText(profile.getUser().getLastName());
-                                etCell.setText(profile.getUser().getCell());
-                                etDepartment.setText(profile.getDepartment());
-                                etJobTitle.setText(profile.getDesignation());
-
                                 etCompany.setText(profile.getCompany().getTitle());
+                                etJobTitle.setText(profile.getDesignation());
+                                //etAddress.setText(profile.getAddress);
+                                etCell.setText(profile.getUser().getCell());
+                                //etWebsite.setText(profile.getWebsite());
 
-                                //etFirstName.setText(jsonUserInfo.get("firstName").toString());
-                                //etLastName.setText(jsonUserInfo.get("lastName").toString());
-                                //etCell.setText(jsonUserInfo.get("cell").toString());
-                                //etDepartment.setText(jsonProfileInfo.get("department").toString());
-                                //etJobTitle.setText(jsonProfileInfo.get("designation").toString());
+
                             }
                             catch(Exception ex)
                             {
@@ -152,19 +150,12 @@ public class EditProfile extends AppCompatActivity {
 
                                 profileInfo.getUser().setFirstName(etFirstName.getText().toString());
                                 profileInfo.getUser().setLastName(etLastName.getText().toString());
-                                profileInfo.getUser().setCell(etCell.getText().toString());
-
-                                profileInfo.setDepartment(etDepartment.getText().toString());
-                                profileInfo.setDesignation(etJobTitle.getText().toString());
-
                                 profileInfo.getCompany().setTitle(etCompany.getText().toString());
+                                profileInfo.setDesignation(etJobTitle.getText().toString());
+                                //profileInfo.setAddress(etAddress.getText().toString());
+                                profileInfo.getUser().setCell(etCell.getText().toString());
+                                //profileInfo.setWebsite(etWebsite.getText().toString());
 
-                                //jsonUserInfo.put("firstName", etFirstName.getText());
-                                //jsonUserInfo.put("lastName", etLastName.getText());
-                                //jsonUserInfo.put("cell", etCell.getText());
-
-                                //jsonProfileInfo.put("department", etDepartment.getText());
-                                //jsonProfileInfo.put("designation", etJobTitle.getText());
 
                                 jsonProfileInfo.put("user", jsonUserInfo.toString());
 
