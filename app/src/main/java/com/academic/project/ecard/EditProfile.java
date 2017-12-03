@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bdlions.dto.Company;
 import com.bdlions.dto.Profile;
 import com.bdlions.dto.response.SignInResponse;
 import com.bdlions.util.ACTION;
@@ -29,6 +30,7 @@ public class EditProfile extends AppCompatActivity {
     SessionManager session;
     public static String strProfileInfo;
     public Profile profileInfo = new Profile();
+    public Company companyInfo = new Company();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,9 +89,9 @@ public class EditProfile extends AppCompatActivity {
                                 etLastName.setText(profile.getUser().getLastName());
                                 etCompany.setText(profile.getCompany().getTitle());
                                 etJobTitle.setText(profile.getDesignation());
-                                //etAddress.setText(profile.getAddress);
+                                etAddress.setText(companyInfo.getAddress());
                                 etCell.setText(profile.getUser().getCell());
-                                //etWebsite.setText(profile.getWebsite());
+                                etWebsite.setText(companyInfo.getWebsite());
 
 
                             }
@@ -152,9 +154,9 @@ public class EditProfile extends AppCompatActivity {
                                 profileInfo.getUser().setLastName(etLastName.getText().toString());
                                 profileInfo.getCompany().setTitle(etCompany.getText().toString());
                                 profileInfo.setDesignation(etJobTitle.getText().toString());
-                                //profileInfo.setAddress(etAddress.getText().toString());
+                                companyInfo.setAddress(etAddress.getText().toString());
                                 profileInfo.getUser().setCell(etCell.getText().toString());
-                                //profileInfo.setWebsite(etWebsite.getText().toString());
+                                companyInfo.setWebsite(etWebsite.getText().toString());
 
 
                                 jsonProfileInfo.put("user", jsonUserInfo.toString());
