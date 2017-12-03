@@ -127,7 +127,7 @@ public class SignUp extends AppCompatActivity {
                                                                 {
                                                                     //session.createLoginSession(identity, signInResponse.getSessionId());
                                                                     session.createLoginSession(etEmail.getText().toString(), signInResponse.getSessionId());
-                                                                    Intent login_intent = new Intent(SignUp.this, CompleteProfile.class);
+                                                                    Intent login_intent = new Intent(SignUp.this, EditProfile.class);
                                                                     startActivity(login_intent);
                                                                 }
                                                                 else
