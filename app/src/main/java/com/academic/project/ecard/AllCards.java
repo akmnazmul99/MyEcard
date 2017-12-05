@@ -39,9 +39,9 @@ public class AllCards extends AppCompatActivity
                             business_card_layout_7;
         private TextView
                 tvLC1FullName, tvLC1JobTitle, tvLC1Cell, tvLC1Email, tvLC1Website, tvLC1Address,
-                tvLC2FullName, tvLC2JobTitle, tvLC2Cell, tvLC2Email, tvLC2Website, tvLC2Address,tvLC2Company,
-                tvLC3FullName, tvLC3JobTitle, tvLC3Cell, tvLC3Email, tvLC3Website, tvLC3Address,tvLC3Company,
-                tvLC4FullName, tvLC4JobTitle, tvLC4Cell, tvLC4Email, tvLC4Website, tvLC4Address,tvLC4Company,
+                tvLC2FullName, tvLC2JobTitle, tvLC2Cell, tvLC2Email, tvLC2Website, tvLC2Address,
+                tvLC3FullName, tvLC3JobTitle, tvLC3Cell, tvLC3Email, tvLC3Website, tvLC3Address,
+                tvLC4FullName, tvLC4JobTitle, tvLC4Cell, tvLC4Email, tvLC4Website, tvLC4Address,
                 tvLC5FullName, tvLC5JobTitle, tvLC5Cell, tvLC5Email, tvLC5Website, tvLC5Address,
                 tvLC6FullName, tvLC6JobTitle, tvLC6Cell, tvLC6Email, tvLC6Website, tvLC6Address,
                 tvLC7FullName, tvLC7JobTitle, tvLC7Cell, tvLC7Email, tvLC7Website, tvLC7Address;
@@ -69,7 +69,6 @@ public class AllCards extends AppCompatActivity
         tvLC2Email = (TextView)findViewById(R.id.tv_lc2_full_email);
         tvLC2Website = (TextView)findViewById(R.id.tv_lc2_website);
         tvLC2Address = (TextView)findViewById(R.id.tv_lc2_address);
-        tvLC2Company = (TextView)findViewById(R.id.tv_lc2_full_company_name);
 
         tvLC3FullName = (TextView)findViewById(R.id.tv_lc3_full_name);
         tvLC3JobTitle = (TextView)findViewById(R.id.tv_lc3_job_title);
@@ -77,7 +76,6 @@ public class AllCards extends AppCompatActivity
         tvLC3Email = (TextView)findViewById(R.id.tv_lc3_full_email);
         tvLC3Website = (TextView)findViewById(R.id.tv_lc3_website);
         tvLC3Address = (TextView)findViewById(R.id.tv_lc3_address);
-        tvLC3Company = (TextView)findViewById(R.id.tv_lc3_full_company_name);
 
         tvLC4FullName = (TextView)findViewById(R.id.tv_lc4_full_name);
         tvLC4JobTitle = (TextView)findViewById(R.id.tv_lc4_job_title);
@@ -85,7 +83,6 @@ public class AllCards extends AppCompatActivity
         tvLC4Email = (TextView)findViewById(R.id.tv_lc4_full_email);
         tvLC4Website = (TextView)findViewById(R.id.tv_lc4_website);
         tvLC4Address = (TextView)findViewById(R.id.tv_lc4_address);
-        tvLC4Company = (TextView)findViewById(R.id.tv_lc4_full_company_name);
 
         tvLC5FullName = (TextView)findViewById(R.id.tv_lc5_full_name);
         tvLC5JobTitle = (TextView)findViewById(R.id.tv_lc5_job_title);
@@ -165,13 +162,6 @@ public class AllCards extends AppCompatActivity
                                 tvLC1Website.setText(profile.getCompany().getWebsite());
                                 tvLC1Address.setText(profile.getCompany().getAddress());
 
-                                //tvLC1FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
-                                //tvLC1JobTitle.setText(jsonProfileInfo.get("designation").toString());
-                                //tvLC1Cell.setText(jsonUserInfo.get("cell").toString());
-                                //tvLC1Email.setText(jsonUserInfo.get("email").toString());
-                                //tvLC1Website.setText(jsonCompanyInfo.get("website").toString());
-                                //tvLC1Address.setText(jsonCompanyInfo.get("address").toString());
-
 
                                 tvLC2FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
                                 tvLC2JobTitle.setText(jsonProfileInfo.get("designation").toString());
@@ -179,7 +169,6 @@ public class AllCards extends AppCompatActivity
                                 tvLC2Email.setText(jsonUserInfo.get("email").toString());
                                 tvLC2Website.setText(jsonCompanyInfo.get("website").toString());
                                 tvLC2Address.setText(jsonCompanyInfo.get("address").toString());
-                                tvLC2Company.setText(jsonCompanyInfo.get("title").toString());
 
                                 tvLC3FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
                                 tvLC3JobTitle.setText(jsonProfileInfo.get("designation").toString());
@@ -187,7 +176,6 @@ public class AllCards extends AppCompatActivity
                                 tvLC3Email.setText(jsonUserInfo.get("email").toString());
                                 tvLC3Website.setText(jsonCompanyInfo.get("website").toString());
                                 tvLC3Address.setText(jsonCompanyInfo.get("address").toString());
-                                tvLC3Company.setText(jsonCompanyInfo.get("title").toString());
 
                                 tvLC4FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
                                 tvLC4JobTitle.setText(jsonProfileInfo.get("designation").toString());
@@ -195,7 +183,6 @@ public class AllCards extends AppCompatActivity
                                 tvLC4Email.setText(jsonUserInfo.get("email").toString());
                                 tvLC4Website.setText(jsonCompanyInfo.get("website").toString());
                                 tvLC4Address.setText(jsonCompanyInfo.get("address").toString());
-                                tvLC4Company.setText(jsonCompanyInfo.get("title").toString());
 
                                 tvLC5FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
                                 tvLC5JobTitle.setText(jsonProfileInfo.get("designation").toString());

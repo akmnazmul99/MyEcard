@@ -48,7 +48,7 @@ public class SingleCardLayout2 extends AppCompatActivity
 
     public String imgName = "";
 
-    private TextView tvLC2FullName, tvLC2JobTitle, tvLC2Cell, tvLC2Email, tvLC2Website, tvLC2Address;
+    private TextView tvLC2FullName, tvLC2JobTitle, tvLC2Cell, tvLC2Email, tvLC2Website, tvLC2Address,tvLC2Company;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,13 +118,8 @@ public class SingleCardLayout2 extends AppCompatActivity
                                 tvLC2Email.setText(profile.getUser().getEmail());
                                 tvLC2Website.setText(profile.getCompany().getWebsite());
                                 tvLC2Address.setText(profile.getCompany().getAddress());
+                                tvLC2Company.setText(profile.getCompany().getTitle());
 
-                                //tvLC1FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
-                                //tvLC1JobTitle.setText(jsonProfileInfo.get("designation").toString());
-                                //tvLC1Cell.setText(jsonUserInfo.get("cell").toString());
-                                //tvLC1Email.setText(jsonUserInfo.get("email").toString());
-                                //tvLC1Website.setText(jsonCompanyInfo.get("website").toString());
-                                //tvLC1Address.setText(jsonCompanyInfo.get("address").toString());
                             }
                             catch (Exception ex)
                             {

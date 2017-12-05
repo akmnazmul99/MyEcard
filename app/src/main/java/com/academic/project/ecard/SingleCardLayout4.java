@@ -120,13 +120,6 @@ public class SingleCardLayout4 extends AppCompatActivity
                                 tvLC4Email.setText(profile.getUser().getEmail());
                                 tvLC4Website.setText(profile.getCompany().getWebsite());
                                 tvLC4Address.setText(profile.getCompany().getAddress());
-
-                                //tvLC1FullName.setText(jsonUserInfo.get("firstName").toString()+" "+jsonUserInfo.get("lastName").toString());
-                                //tvLC1JobTitle.setText(jsonProfileInfo.get("designation").toString());
-                                //tvLC1Cell.setText(jsonUserInfo.get("cell").toString());
-                                //tvLC1Email.setText(jsonUserInfo.get("email").toString());
-                                //tvLC1Website.setText(jsonCompanyInfo.get("website").toString());
-                                //tvLC1Address.setText(jsonCompanyInfo.get("address").toString());
                             }
                             catch (Exception ex)
                             {
